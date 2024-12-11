@@ -23,39 +23,44 @@ export default function Content() {
                 </div>
                 
                 <table className="w-full text-left mt-6">
-                    <tr className="border-y">
-                        {/* Head */}
-                        <th className="font-semibold p-4 ">Task Title</th>
-                        <th className="font-semibold p-4">Project</th>
-                        <th className="font-semibold p-4">Responsible</th>
-                        {/* Prazo */}
-                        <th className="font-semibold p-4">Deadline</th>
-                        <th className="font-semibold p-4">Status</th>
-                    </tr>
-                    <tr className="border-y">
-                        {/* Content */}
-                        <td className="p-4">Teste</td>
-                        <td className="p-4">Teste</td>
-                        <td className="p-4">Teste</td>
-                        <td className="p-4">Teste</td>
-                        <td className="p-4">Teste</td>
-                    </tr>
-                    <tr className="border-y">
-                        {/* Content */}
-                        <td className="p-4">Teste</td>
-                        <td className="p-4">Teste</td>
-                        <td className="p-4">Teste</td>
-                        <td className="p-4">Teste</td>
-                        <td className="p-4">Teste</td>
-                    </tr>
-                    <tr className="border-y">
-                        {/* Content */}
-                        <td className="p-4">Teste</td>
-                        <td className="p-4">Teste</td>
-                        <td className="p-4">Teste</td>
-                        <td className="p-4">Teste</td>
-                        <td className="p-4">Teste</td>
-                    </tr>
+                    <thead>
+                        <tr className="border-y">
+                            {/* Head */}
+                            <th className="font-semibold p-4 ">Task Title</th>
+                            <th className="font-semibold p-4">Project</th>
+                            <th className="font-semibold p-4">Responsible</th>
+                            {/* Prazo */}
+                            <th className="font-semibold p-4">Deadline</th>
+                            <th className="font-semibold p-4">Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr className="border-y">
+                            {/* Content */}
+                            <td className="p-4">Implementando nova feature</td>
+                            <td className="p-4">WebApp</td>
+                            <td className="p-4">Rafael R.</td>
+                            <td className="p-4">15/01/2025</td>
+                            <td className="p-4">Pendente</td>
+                        </tr>
+                        <tr className="border-y">
+                            {/* Content */}
+                            <td className="p-4">Implementando nova feature</td>
+                            <td className="p-4">WebApp</td>
+                            <td className="p-4">Rafael R.</td>
+                            <td className="p-4">15/01/2025</td>
+                            <td className="p-4">Pendente</td>
+                        </tr>
+                        <tr className="border-y">
+                            {/* Content */}
+                            <td className="p-4">Implementando nova feature</td>
+                            <td className="p-4">WebApp</td>
+                            <td className="p-4">Rafael R.</td>
+                            <td className="p-4">15/01/2025</td>
+                            <td className="p-4">Pendente</td>
+                        </tr>
+                    </tbody>
                 </table>
             </main>
         </div>

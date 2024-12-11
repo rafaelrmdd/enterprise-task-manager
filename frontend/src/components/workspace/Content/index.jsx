@@ -39,13 +39,12 @@ export default function Content() {
                     </button>
                 </div>
                 
-                <div className="flex flex-row gap-10">
+                <div className="flex flex-row justify-between flex-wrap">
                     <Card/>
                     <Card/>
                     <Card/>
-                </div>
-                
-                
+                    <Card/>
+                </div> 
             </main>
             
         </div>
