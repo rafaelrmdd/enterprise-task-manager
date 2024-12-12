@@ -6,7 +6,7 @@ export default function Content() {
     return (
         <div className="flex-1">
             <SearchBar />
-            <main className="px-6 py-6">
+            <main className="p-6">
                 <div className="flex justify-between">
                     <h1 className="font-bold text-3xl">My Workspace</h1>    
 

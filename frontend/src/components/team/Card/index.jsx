@@ -5,8 +5,8 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 
 export default function Card() {
     return (
-        <div className="border flex flex-row gap-4 p-4 w-[31%] mt-6">
-            <div className="flex flex-row gap-4 w-full">
+        <div className="border rounded flex flex-row gap-4 p-4 w-[32.3%] mt-6">
+            <div className="flex flex-row gap-4 w-full ">
                 <div className="flex items-center">
                     <AiOutlineTeam className="size-10"/>
                 </div>

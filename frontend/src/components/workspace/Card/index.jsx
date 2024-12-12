@@ -1,6 +1,6 @@
 export default function Card() {
     return (
-        <div className="border p-4 w-[31%] mt-6">
+        <div className="border p-4 w-[32.3%] mt-6">
             <div className="flex justify-between">
                 <h2 className="inline text-blue-600 font-semibold">In Progress</h2>
                 <span className="border rounded-full px-2">4</span>
