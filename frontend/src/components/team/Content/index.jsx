@@ -25,7 +25,6 @@ export default function Content() {
                     <Card />    
                     <Card />
                     <Card />
-
                 </div>
 
             </main>

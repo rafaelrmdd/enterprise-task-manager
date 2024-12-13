@@ -1,5 +1,4 @@
-import { IoSearchOutline } from "react-icons/io5";
-import { IoIosNotificationsOutline } from "react-icons/io";
+
 
 import Content from "../../components/workspace/Content"
 import Sidebar from "../../components/SideBar";
