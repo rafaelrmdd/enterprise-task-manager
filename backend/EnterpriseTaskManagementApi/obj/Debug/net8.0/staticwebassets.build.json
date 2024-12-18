@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "xkCWWqqox3wKPSfROPkS9SMVFjyb53oq6KR5ahRJTUE=",
+  "Source": "EnterpriseTaskManagementApi",
+  "BasePath": "_content/EnterpriseTaskManagementApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
