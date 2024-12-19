@@ -7,5 +7,5 @@ public class TasksContext : DbContext
 {
 	public TasksContext(DbContextOptions options) : base(options) { }
 
-	public DbSet<TaskItem>? Tasks { get; set; }
+	public DbSet<TaskItem> Tasks { get; set; } = null!;
 }

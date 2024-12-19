@@ -1,6 +1,6 @@
 using EnterpriseTaskManagementApi.Context;
+using EnterpriseTaskManagementApi.Services;
 using Microsoft.EntityFrameworkCore;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +23,8 @@ builder.Services.AddCors(options =>
         });
 });
 
+builder.Services.AddScoped<ITasksService, TasksService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,4 +42,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+//to initialize, type this on console = dotnet watch -lp https
 app.Run();
