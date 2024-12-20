@@ -40,7 +40,6 @@ export default function Content() {
             </main>
             
             {/* Graph here later */}
-            <Modal isAddTaskModalOpen={isAddTaskModalOpen}/>
         </div>
     )
 }

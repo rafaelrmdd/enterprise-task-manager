@@ -2,7 +2,10 @@ import Modal from 'react-modal';
 import { useContext, useState } from 'react';
 import { TaskContext } from '../Content';
 
+
 export default function AddTaskModal() {
+    
+    Modal.setAppElement('#__next');
 
     const { isAddTaskModalOpen, onClose } = useContext(TaskContext);
 

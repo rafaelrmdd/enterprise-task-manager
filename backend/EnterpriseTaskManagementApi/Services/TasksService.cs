@@ -18,9 +18,9 @@ public class TasksService : ITasksService
     {
         var entities = await _context.Tasks.ToListAsync();
 
-        if (entities is null)
+        if (entities.Count < 1)
         {
-            throw new NotFoundException("No tasks found.");
+            throw new NotFoundException("No task found.");
         }
 
         return entities;
@@ -32,7 +32,7 @@ public class TasksService : ITasksService
 
         if (entity is null)
         {
-            throw new NotFoundException("Task with id: " + id + "was not found.");
+            throw new NotFoundException("Task with id: " + id + "   was not found.");
         }
 
         return entity;
@@ -60,7 +60,7 @@ public class TasksService : ITasksService
 
         if (entity is null)
         {
-            throw new NotFoundException("Task with id: " + id + "was not found.");
+            throw new NotFoundException("Task with id: " + id + " was not found.");
         }
 
         entity.Title = taskItemDTO.Title;
@@ -80,7 +80,7 @@ public class TasksService : ITasksService
 
         if (entity is null)
         {
-            throw new NotFoundException("Task with id: " + id + "was not found.");
+            throw new NotFoundException("Task with id: " + id + " was not found.");
         }
 
         _context.Tasks.Remove(entity);

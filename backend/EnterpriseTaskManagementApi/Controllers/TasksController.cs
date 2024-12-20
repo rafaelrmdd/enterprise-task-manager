@@ -28,6 +28,10 @@ public class EnterpriseTaskManagementApi : ControllerBase
         {
             return NotFound(new { message = e.Message });
         }
+        catch (Exception)
+        {
+            return StatusCode(500, new { message = "An error ocurred while processing your request" });
+        }
 
     }
 
