@@ -1,13 +1,13 @@
 import { CiFilter } from "react-icons/ci";
 import { SlPlus } from "react-icons/sl";
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 import SearchBar from "../../SearchBar"
 import AddTaskModal from "../Modal";
 
 export const TaskContext = createContext();
 
-export default function Content() {
+export default function Content({tasks}) {
 
     const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
     
@@ -28,7 +28,7 @@ export default function Content() {
                 <main className="p-6">
                     <div className="flex justify-between">
                         <h1 className="font-bold text-3xl">My Workspace</h1>    
-
+                    
                         <div className="flex gap-2">
                             <button className="flex items-center gap-2 bg-gray-300 p-2 rounded-md text-black">
                                 <CiFilter />
@@ -58,35 +58,25 @@ export default function Content() {
                         </thead>
 
                         <tbody>
-                            <tr className="border-y">
+                            {tasks.map((task) => (
+                            <tr 
+                                className="border-y"
+                                key={task.id}
+                            >
                                 {/* Content */}
-                                <td className="p-4">Implementando nova feature</td>
-                                <td className="p-4">WebApp</td>
-                                <td className="p-4">Rafael R.</td>
-                                <td className="p-4">15/01/2025</td>
-                                <td className="p-4">Pendente</td>
+                                <td className="p-4">{task.title}</td>
+                                <td className="p-4">{task.project}</td>
+                                <td className="p-4">{task.responsible}</td>
+                                <td className="p-4">{task.deadline}</td>
+                                <td className="p-4">{task.status === 0 ? "In Progress" : "Finished"}</td>
                             </tr>
-                            <tr className="border-y">
-                                {/* Content */}
-                                <td className="p-4">Implementando nova feature</td>
-                                <td className="p-4">WebApp</td>
-                                <td className="p-4">Rafael R.</td>
-                                <td className="p-4">15/01/2025</td>
-                                <td className="p-4">Pendente</td>
-                            </tr>
-                            <tr className="border-y">
-                                {/* Content */}
-                                <td className="p-4">Implementando nova feature</td>
-                                <td className="p-4">WebApp</td>
-                                <td className="p-4">Rafael R.</td>
-                                <td className="p-4">15/01/2025</td>
-                                <td className="p-4">Pendente</td>
-                            </tr>
+                            
+                            ))}
                         </tbody>
                     </table>
                 </main>
             </div>
-            <AddTaskModal />
+            <AddTaskModal/>
         </TaskContext.Provider>
     )
 }
