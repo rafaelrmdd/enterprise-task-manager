@@ -2,13 +2,13 @@ import Modal from 'react-modal';
 
 import { useForm } from "react-hook-form";
 import { useContext, useState } from 'react';
-import { TaskContext } from '../Content';
+import { AddTaskContext } from '../Content';
 import { tasksApi } from '@/api/tasks';
 
 export default function AddTaskModal() {
     Modal.setAppElement('#__next');
 
-    const { isAddTaskModalOpen, onClose } = useContext(TaskContext);
+    const { isAddTaskModalOpen, onClose } = useContext(AddTaskContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {

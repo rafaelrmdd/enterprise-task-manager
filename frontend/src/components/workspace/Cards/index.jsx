@@ -1,4 +1,13 @@
+import { TasksContext } from "../../../pages/_app";
+import { useContext } from "react";
+
 export function CardTaskStatus() {
+
+    //Data updated every 5s
+    const tasksItems = useContext(TasksContext);
+
+    //implement data later
+
     return (
         <div className="border rounded p-4">
             <h2>Task Status</h2>
@@ -18,6 +27,10 @@ export function CardTaskStatus() {
 }
 
 export function CardProductivity() {
+
+    //Data updated every 5s
+    const tasksItems = useContext(TasksContext);
+
     return (
         <div className="border rounded p-4">
             <h2>Productivity</h2>

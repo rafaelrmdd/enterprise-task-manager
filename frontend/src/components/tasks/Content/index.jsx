@@ -1,15 +1,19 @@
 import { CiFilter } from "react-icons/ci";
 import { SlPlus } from "react-icons/sl";
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 
 import SearchBar from "../../SearchBar"
 import AddTaskModal from "../Modal";
+import { TasksContext } from "@/pages/_app";
 
-export const TaskContext = createContext();
+export const AddTaskContext = createContext();
 
-export default function Content({tasks}) {
+export default function Content() {
 
     const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
+
+    //Data updated every 5s
+    const tasksItems = useContext(TasksContext);
     
     const openModal = () => {
         setIsAddTaskModalOpen(true);
@@ -19,8 +23,15 @@ export default function Content({tasks}) {
         setIsAddTaskModalOpen(false);
     }
 
+    //Convert date
+    const usFormat = Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
+
     return (
-        <TaskContext.Provider
+        <AddTaskContext.Provider
             value={{isAddTaskModalOpen, onClose}}
         >
             <div className="flex-1">
@@ -58,7 +69,7 @@ export default function Content({tasks}) {
                         </thead>
 
                         <tbody>
-                            {tasks.map((task) => (
+                            {tasksItems.map((task) => (
                             <tr 
                                 className="border-y"
                                 key={task.id}
@@ -67,7 +78,7 @@ export default function Content({tasks}) {
                                 <td className="p-4">{task.title}</td>
                                 <td className="p-4">{task.project}</td>
                                 <td className="p-4">{task.responsible}</td>
-                                <td className="p-4">{task.deadline}</td>
+                                <td className="p-4">{usFormat.format(new Date(task.deadline))}</td>
                                 <td className="p-4">{task.status === 0 ? "In Progress" : "Finished"}</td>
                             </tr>
                             
@@ -77,6 +88,6 @@ export default function Content({tasks}) {
                 </main>
             </div>
             <AddTaskModal/>
-        </TaskContext.Provider>
+        </AddTaskContext.Provider>
     )
 }

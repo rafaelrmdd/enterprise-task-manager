@@ -1,14 +1,12 @@
 import { IoSearchOutline } from "react-icons/io5";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { FaRegUserCircle } from "react-icons/fa";
-import { SlPlus } from "react-icons/sl";
 import { CardTaskStatus, CardProductivity } from "../Cards";
-import { createContext, useState } from 'react';
 
 export default function Content() {
+
     return (
         <div className="flex-1">
-        
             {/* Remove this search bar later and substitute by the component SearchBar */}
             <div className="flex justify-between border-b p-4">
                 {/* Search bar */}
