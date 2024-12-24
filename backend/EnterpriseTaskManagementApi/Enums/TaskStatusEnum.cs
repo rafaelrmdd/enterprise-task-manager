@@ -5,5 +5,6 @@ namespace EnterpriseTaskManagementApi.Enums;
 public enum TaskStatusEnum
 {
     InProgress,
-    Finished
+    Finished,
+    InOverdue
 }

@@ -2,12 +2,18 @@ import { TbFileExport } from "react-icons/tb";
 import { CiCalendar } from "react-icons/ci";
 import { CardProductivity, CardProjectStatus, CardProjectTime } from "../Cards";
 import { GoGraph } from "react-icons/go";
+import { useContext } from "react";
+import { TasksContext } from "@/pages/_app";
 
-
+import PieGraph from "../Graphs/"
 import SearchBar from "../../SearchBar"
 
-
 export default function Content() {
+    const tasksItems = useContext(TasksContext);
+    const taskItemsInProgress = tasksItems.filter(task => task.status === 0).length;
+    const taskItemsFinished = tasksItems.filter(task => task.status === 1).length;
+    const taskItemsOverdue = tasksItems.filter(task => task.status === 2).length //Mudar na api dps
+
     return (
         <div className="flex-1">
             <SearchBar />
@@ -27,10 +33,8 @@ export default function Content() {
                     </div>
                 </div>
 
-                <section className="flex justify-between mt-7">
+                <section className="flex gap-4 mt-7">
                     <CardProductivity />
-                    <CardProjectTime />
-                    <CardProjectStatus />
                 </section>
 
                 <section className="mt-7">
@@ -40,8 +44,9 @@ export default function Content() {
                             <GoGraph className="size-6"/>
                         </div>
                         
-
-                        {/* Graph is gonna be here */}
+                        <div className="flex items-center">
+                            <PieGraph />
+                        </div>     
                     </div>
                 </section>
             </main>
