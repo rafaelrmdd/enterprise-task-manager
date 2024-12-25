@@ -1,7 +1,8 @@
 import { IoSearchOutline } from "react-icons/io5";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { FaRegUserCircle } from "react-icons/fa";
-import { CardTaskStatus, CardProductivity } from "../Cards";
+import { SlPlus } from "react-icons/sl";
+import CardProject from "../Cards"
 
 export default function Content() {
 
@@ -29,12 +30,14 @@ export default function Content() {
             <main className="px-6 py-6">
                 <div className="flex justify-between">
                     <h1 className="font-bold text-3xl">My Workspace</h1>
+                    <button className="flex items-center gap-2 p-2 bg-blue-600 rounded text-white ">
+                        <SlPlus size={24} />
+                        New Task
+                    </button>
                 </div>
-                <div className="flex flex-row gap-4 mt-6">
-                    <CardTaskStatus />
-                    <CardProductivity />
-                </div> 
-                
+                <div className="flex flex-row flex-wrap gap-4 mt-6">
+                    <CardProject />
+                </div>        
             </main>
             
             {/* Graph here later */}

@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 
 namespace EnterpriseTaskManagementApi.Enums;
 
-public enum TaskStatusEnum
+public enum StatusEnum
 {
     InProgress,
     Finished,

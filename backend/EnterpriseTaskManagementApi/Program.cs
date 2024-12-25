@@ -8,7 +8,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<TasksContext>(options =>
+builder.Services.AddDbContext<EnterpriseTaskManagementContext>(options =>
     options.UseNpgsql("Server=localhost;Port=5433;Database=TaskManagementDB;User Id=postgres;Password=1234;")
 );
 
@@ -24,6 +24,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<ITasksService, TasksService>();
+builder.Services.AddScoped<IProjectsService, ProjectsService>();
 
 var app = builder.Build();
 

@@ -7,9 +7,9 @@ namespace EnterpriseTaskManagementApi.Services;
 
 public class TasksService : ITasksService
 {
-    public TasksContext _context;
+    public EnterpriseTaskManagementContext _context;
 
-    public TasksService(TasksContext context)
+    public TasksService(EnterpriseTaskManagementContext context)
     {
         _context = context;
     }
@@ -45,7 +45,8 @@ public class TasksService : ITasksService
             taskItem.Project,
             taskItem.Responsible,
             taskItem.Deadline,
-            taskItem.Status
+            taskItem.Status,
+            taskItem.ProjectName
         );
 
         await _context.Tasks.AddAsync(entity);

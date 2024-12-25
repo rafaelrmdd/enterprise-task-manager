@@ -1,7 +1,7 @@
 import { TasksContext } from "../../../pages/_app";
 import { useContext } from "react";
 
-export function CardTaskStatus() {
+export default function CardProject() {
 
     //Data updated every 5s
     const tasksItems = useContext(TasksContext);
@@ -9,41 +9,14 @@ export function CardTaskStatus() {
     const taskItemsFinished = tasksItems.filter(task => task.status === 1).length;
 
     //implement data later
-
     return (
-        <div className="border rounded p-4">
-            <h2>Task Status</h2>
-            <div className="flex justify-between gap-4 mt-4 ">
-                <div className="flex flex-col items-center">
-                    <span className="text-3xl ">{taskItemsInProgress}</span> <p className="text-gray-400">In Progress</p>
-                </div>
-                <div className="flex flex-col items-center">
-                    <span className="text-3xl">{taskItemsFinished}</span> <p className="text-gray-400">Completed</p>
-                </div>
+        <div className="p-4 border rounded w-[32%]">
+            <h2 className="font-semibold text-blue-600">In Progress</h2>
+            <h3 className="font-medium">System redesign</h3>
+            <div className="flex justify-between text-sm text-gray-500 mt-2">
+                <span>Deadline:</span> <span>00/00/0000</span>
             </div>
-        </div>
-    )
-}
-
-export function CardProductivity() {
-
-    //Data updated every 5s
-    const tasksItems = useContext(TasksContext);
-
-    return (
-        <div className="border rounded p-4">
-            <h2>Productivity</h2>
-            <div className="flex gap-4 mt-4">
-                <div className="flex flex-col items-center">
-                    <span className="text-3xl">12</span> <p className="text-gray-400">Tasks Completed</p>
-                </div>
-                <div className="flex flex-col items-center">
-                    <span className="text-3xl">8</span> <p className="text-gray-400">Hours Worked</p>
-                </div>
-                <div className="flex flex-col items-center">
-                    <span className="text-3xl">24</span> <p className="text-gray-400">Average Task Duration</p>
-                </div>
-            </div>
+            <span className="text-sm text-gray-500">50%</span>
         </div>
     )
 }

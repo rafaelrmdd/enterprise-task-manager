@@ -3,7 +3,6 @@ using System;
 using EnterpriseTaskManagementApi.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,12 +10,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace EnterpriseTaskManagementApi.Migrations
 {
-    [DbContext(typeof(TasksContext))]
-    [Migration("20241224182427_AddCreatedAtColumn")]
-    partial class AddCreatedAtColumn
+    [DbContext(typeof(EnterpriseTaskManagementContext))]
+    partial class EnterpriseTaskManagementContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,6 +21,29 @@ namespace EnterpriseTaskManagementApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("EnterpriseTaskManagementApi.Models.Project", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Deadline")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TasksTotal")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Projects");
+                });
 
             modelBuilder.Entity("EnterpriseTaskManagementApi.Models.TaskItem", b =>
                 {
@@ -39,6 +59,10 @@ namespace EnterpriseTaskManagementApi.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Project")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProjectName")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Responsible")
