@@ -45,8 +45,7 @@ public class TasksService : ITasksService
             taskItem.Project,
             taskItem.Responsible,
             taskItem.Deadline,
-            taskItem.Status,
-            taskItem.ProjectName
+            taskItem.Status
         );
 
         await _context.Tasks.AddAsync(entity);

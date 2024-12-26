@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EnterpriseTaskManagementApi.Migrations
 {
     [DbContext(typeof(EnterpriseTaskManagementContext))]
-    [Migration("20241225180857_Initial")]
-    partial class Initial
+    [Migration("20241226173357_RemoveRowProjectName")]
+    partial class RemoveRowProjectName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,10 +62,6 @@ namespace EnterpriseTaskManagementApi.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Project")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ProjectName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Responsible")

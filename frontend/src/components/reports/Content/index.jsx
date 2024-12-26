@@ -9,10 +9,6 @@ import PieGraph from "../Graphs/"
 import SearchBar from "../../SearchBar"
 
 export default function Content() {
-    const tasksItems = useContext(TasksContext);
-    const taskItemsInProgress = tasksItems.filter(task => task.status === 0).length;
-    const taskItemsFinished = tasksItems.filter(task => task.status === 1).length;
-    const taskItemsOverdue = tasksItems.filter(task => task.status === 2).length //Mudar na api dps
 
     return (
         <div className="flex-1">

@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using EnterpriseTaskManagementApi.CustomExceptions;
 using EnterpriseTaskManagementApi.Models;
 using EnterpriseTaskManagementApi.Services;
@@ -7,22 +6,22 @@ using Microsoft.AspNetCore.Mvc;
 namespace EnterpriseTaskManagementApi.Controllers;
 
 [ApiController]
-[Route("api/tasks", Name = "Tasks")]
-public class TasksController : ControllerBase
+[Route("api/projects", Name = "Projects")]
+public class ProjectsController : ControllerBase
 {
-    private ITasksService _service;
+    private IProjectsService _service;
 
-    public TasksController(ITasksService service)
+    public ProjectsController(IProjectsService service)
     {
         _service = service;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TaskItem>>> GetTasksAsync()
+    public async Task<ActionResult<IEnumerable<Project>>> GetTasksAsync()
     {
         try
         {
-            var entities = await _service.GetTasksAsync();
+            var entities = await _service.GetProjectsAsync();
             return Ok(entities);
         }
         catch (NotFoundException e)
@@ -37,11 +36,11 @@ public class TasksController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<TaskItem>> GetTaskByIdAsync(Guid id)
+    public async Task<ActionResult<Project>> GetTaskByIdAsync(Guid id)
     {
         try
         {
-            var entity = await _service.GetTaskByIdServiceAsync(id);
+            var entity = await _service.GetProjectByIdServiceAsync(id);
             return Ok(entity);
         }
         catch (NotFoundException e)
@@ -55,17 +54,17 @@ public class TasksController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<TaskItem> AddTaskAsync(TaskItemDTO taskItem)
+    public async Task<Project> AddTaskAsync(ProjectDTO project)
     {
-        return await _service.AddTaskServiceAsync(taskItem);
+        return await _service.AddProjectServiceAsync(project);
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<TaskItem>> UpdateTaskAsync(Guid id, TaskItemDTO taskItem)
+    public async Task<ActionResult<Project>> UpdateTaskAsync(Guid id, ProjectDTO taskItem)
     {
         try
         {
-            var entity = await _service.UpdateTaskServiceAsync(id, taskItem);
+            var entity = await _service.UpdateProjectServiceAsync(id, taskItem);
             return Ok(entity);
         }
         catch (NotFoundException e)
@@ -79,11 +78,11 @@ public class TasksController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult<TaskItem>> DeleteTaskByIdAsync(Guid id)
+    public async Task<ActionResult<Project>> DeleteTaskByIdAsync(Guid id)
     {
         try
         {
-            var entity = await _service.DeleteTaskServiceAsync(id);
+            var entity = await _service.DeleteProjectServiceAsync(id);
             return Ok(entity);
         }
         catch (NotFoundException e)

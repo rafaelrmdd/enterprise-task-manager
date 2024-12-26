@@ -31,9 +31,7 @@ export default function Content() {
     });
 
     return (
-        <AddTaskContext.Provider
-            value={{isAddTaskModalOpen, onClose}}
-        >
+        <AddTaskContext.Provider value={{isAddTaskModalOpen, onClose}}>
             <div className="flex-1">
                 <SearchBar />
                 <main className="p-6">
@@ -70,18 +68,17 @@ export default function Content() {
 
                         <tbody>
                             {tasksItems.map((task) => (
-                            <tr 
-                                className="border-y"
-                                key={task.id}
-                            >
-                                {/* Content */}
-                                <td className="p-4">{task.title}</td>
-                                <td className="p-4">{task.project}</td>
-                                <td className="p-4">{task.responsible}</td>
-                                <td className="p-4">{usFormat.format(new Date(task.deadline))}</td>
-                                <td className="p-4">{task.status === 0 ? "In Progress" : "Finished"}</td>
-                            </tr>
-                            
+                                <tr 
+                                    className="border-y"
+                                    key={task.id}
+                                >
+                                    {/* Content */}
+                                    <td className="p-4">{task.title}</td>
+                                    <td className="p-4">{task.project}</td>
+                                    <td className="p-4">{task.responsible}</td>
+                                    <td className="p-4">{usFormat.format(new Date(task.deadline))}</td>
+                                    <td className="p-4">{task.status === 0 ? "In Progress" : "Finished"}</td>
+                                </tr>   
                             ))}
                         </tbody>
                     </table>

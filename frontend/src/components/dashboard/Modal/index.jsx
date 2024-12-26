@@ -1,24 +1,23 @@
 import { useForm } from "react-hook-form";
 import { useContext, useState } from 'react';
-import { AddTaskContext } from '../Content';
-import { tasksApi } from '@/api/tasks';
+import { projectsApi } from '../../../api/projects';
+import { AddProjectContext } from '../Content';
 
 import Modal from 'react-modal';
 
-export default function AddTaskModal() {
+export default function AddProjectModal() {
     Modal.setAppElement('#__next');
 
-    const { isAddTaskModalOpen, onClose } = useContext(AddTaskContext);
+    const { isAddProjectModalOpen, onClose } = useContext(AddProjectContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
         console.log(data)
-        const response = await tasksApi.post("/tasks", {
-            title: data.taskTitle,
-            project: data.taskProject,
-            responsible: data.taskResponsible,
-            deadline: new Date(data.taskDeadline),
-            status: parseInt(data.taskStatus)
+        const response = await projectsApi.post("/tasks", {
+            title: data.projectTitle,
+            status: parseInt(data.projectStatus),
+            deadline: new Date(data.projectDeadline),
+            tasksTotal: parseInt(data.projectTasksTotal)
         }, {
             headers: {
                 'Content-Type': 'application/json'
@@ -30,9 +29,9 @@ export default function AddTaskModal() {
 
     return (
         <Modal
-            isOpen={isAddTaskModalOpen}
+            isOpen={isAddProjectModalOpen}
             onRequestClose={onClose}
-            contentLabel="Create New Task"
+            contentLabel="Create New Project"
             className="bg-white p-6 rounded-lg shadow-lg w-[500px]"
             overlayClassName="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center"
         >
@@ -41,58 +40,47 @@ export default function AddTaskModal() {
                 <h2 className="text-2xl font-bold mb-4">Create New Task</h2>
                 <div className="space-y-4">
                     <div>
-                        <label htmlFor="taskTitle" className="block font-medium mb-1">
-                            Task Title
+                        <label htmlFor="projectTitle" className="block font-medium mb-1">
+                            Project Title
                         </label>
                         <input
                             type="text"
-                            id="taskTitle"
+                            id="projectTitle"
                             className="border rounded-md px-3 py-2 w-full"
-                            {...register("taskTitle")}
+                            {...register("projectTitle")}
                         />
                     </div>
                     <div>
-                        <label htmlFor="project" className="block font-medium mb-1">
-                            Project
-                        </label>
-                        <input
-                            type="text"
-                            id="taskProject"
-                            className="border rounded-md px-3 py-2 w-full"
-                            {...register("taskProject")}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="responsible" className="block font-medium mb-1">
-                            Responsible
-                        </label>
-                        <input
-                            type="text"
-                            id="taskResponsible"
-                            className="border rounded-md px-3 py-2 w-full"
-                            {...register("taskResponsible")}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="deadline" className="block font-medium mb-1">
+                        <label htmlFor="projectDeadline" className="block font-medium mb-1">
                             Deadline
                         </label>
                         <input
                             type="date"
-                            id="taskDeadline"
+                            id="projectDeadline"
                             className="border rounded-md px-3 py-2 w-full"
-                            {...register("taskDeadline")}
+                            {...register("projectDeadline")}
                         />
                     </div>
                     <div>
-                        <label htmlFor="status" className="block font-medium mb-1">
+                        <label htmlFor="projectTasksTotal" className="block font-medium mb-1">
+                            Tasks Total
+                        </label>
+                        <input
+                            type="text"
+                            id="projectTasksTotal"
+                            className="border rounded-md px-3 py-2 w-full"
+                            {...register("projectTasksTotal")}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="projectStatus" className="block font-medium mb-1">
                             Status
                         </label>
                         <input
                             type="text"
-                            id="taskStatus"
+                            id="projectStatus"
                             className="border rounded-md px-3 py-2 w-full"
-                            {...register("taskStatus")}
+                            {...register("projectStatus")}
                         />
                     </div>
                 </div>

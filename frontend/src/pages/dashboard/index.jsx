@@ -1,4 +1,4 @@
-import Content from "../../components/workspace/Content"
+import Content from "../../components/dashboard/Content"
 import Sidebar from "../../components/SideBar";
 
 
