@@ -16,6 +16,7 @@ export default function Content() {
 
     //Data updated every 5s
     const projectsItems = useContext(ProjectsContext);
+    console.log('projectItems: ', projectsItems)
     
     const openModal = () => {
         setIsAddProjectModalOpen(true);
@@ -25,12 +26,12 @@ export default function Content() {
         setIsAddProjectModalOpen(false);
     }
 
-    // //Convert date
-    // const usFormat = Intl.DateTimeFormat('en-US', {
-    //     year: 'numeric',
-    //     month: '2-digit',
-    //     day: '2-digit'
-    // });
+    //Convert date
+    const usFormat = Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
 
     return (
         <AddProjectContext.Provider value={{isAddProjectModalOpen, onClose}}>
@@ -66,7 +67,16 @@ export default function Content() {
                         </button>
                     </div>
                     <div className="flex flex-row flex-wrap gap-4 mt-6">
-                        <CardProject />
+                        {projectsItems.map((project) => (
+                            <div className="p-4 border rounded w-[32%]">
+                                <h2 className="font-semibold text-blue-600">{project.status}</h2>
+                                <h3 className="font-medium">{project.title}</h3>
+                                <div className="flex justify-between text-sm text-gray-500 mt-2">
+                                    <span>Deadline:</span> <span>{usFormat.format(new Date(project.deadline))}</span>
+                                </div>
+                                <span className="text-sm text-gray-500">50%</span>
+                            </div>
+                        ))}
                     </div>        
                 </main>
             </div>

@@ -4,6 +4,7 @@ import { AddTaskContext } from '../Content';
 import { tasksApi } from '@/api/tasks';
 
 import Modal from 'react-modal';
+import { MembersContext, ProjectsContext } from "@/pages/_app";
 
 export default function AddTaskModal() {
     Modal.setAppElement('#__next');
@@ -11,8 +12,12 @@ export default function AddTaskModal() {
     const { isAddTaskModalOpen, onClose } = useContext(AddTaskContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+    //Data updated every 5s
+    const projectsItems = useContext(ProjectsContext);
+    const membersItems = useContext(MembersContext);
+
     const onSubmit = async (data) => {
-        console.log(data)
+        // console.log(data)
         const response = await tasksApi.post("/tasks", {
             title: data.taskTitle,
             project: data.taskProject,
@@ -25,7 +30,7 @@ export default function AddTaskModal() {
             }
         })
 
-        console.log(response)
+        // console.log(response)
     }
 
     return (
@@ -52,29 +57,39 @@ export default function AddTaskModal() {
                         />
                     </div>
                     <div>
-                        <label htmlFor="project" className="block font-medium mb-1">
+                        <label htmlFor="taskProject" className="block font-medium mb-1">
                             Project
                         </label>
-                        <input
-                            type="text"
-                            id="taskProject"
+                        <select 
                             className="border rounded-md px-3 py-2 w-full"
+                            id="taskProject"
                             {...register("taskProject")}
-                        />
+                        >
+                            {projectsItems.map((project) => (
+                                <option>
+                                    {project.title}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div>
-                        <label htmlFor="responsible" className="block font-medium mb-1">
+                        <label htmlFor="taskResponsible" className="block font-medium mb-1">
                             Responsible
                         </label>
-                        <input
-                            type="text"
-                            id="taskResponsible"
+                        <select 
                             className="border rounded-md px-3 py-2 w-full"
+                            id="taskResponsible"
                             {...register("taskResponsible")}
-                        />
+                        >
+                            {membersItems.map((member) => (
+                                <option>
+                                    {member.name}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div>
-                        <label htmlFor="deadline" className="block font-medium mb-1">
+                        <label htmlFor="taskDeadline" className="block font-medium mb-1">
                             Deadline
                         </label>
                         <input

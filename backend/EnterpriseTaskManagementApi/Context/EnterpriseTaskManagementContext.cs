@@ -9,4 +9,5 @@ public class EnterpriseTaskManagementContext : DbContext
 
 	public DbSet<TaskItem> Tasks { get; set; } = null!;
 	public DbSet<Project> Projects { get; set; } = null!;
+	public DbSet<Member> Members { get; set; } = null!;
 }

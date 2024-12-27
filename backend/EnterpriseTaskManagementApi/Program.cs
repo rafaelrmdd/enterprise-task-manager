@@ -25,6 +25,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<ITasksService, TasksService>();
 builder.Services.AddScoped<IProjectsService, ProjectsService>();
+builder.Services.AddScoped<IMembersService, MembersService>();
 
 var app = builder.Build();
 

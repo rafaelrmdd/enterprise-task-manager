@@ -1,37 +1,39 @@
 import { useForm } from "react-hook-form";
 import { useContext, useState } from 'react';
-import { projectsApi } from '../../../api/projects';
-import { AddProjectContext } from '../Content';
+import { AddMemberContext, AddTaskContext } from '../Content';
+import { tasksApi } from '@/api/tasks';
+import { ProjectsContext } from "@/pages/_app";
+import { membersApi } from "@/api/members";
 
 import Modal from 'react-modal';
 
-export default function AddProjectModal() {
+export default function AddMemberModal() {
     Modal.setAppElement('#__next');
 
-    const { isAddProjectModalOpen, onClose } = useContext(AddProjectContext);
+    const { isAddMemberModalOpen, onClose } = useContext(AddMemberContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
-        //Remove logs later
-        console.log('data:', data)
-        const response = await projectsApi.post("/projects", {
-            title: data.projectTitle,
-            status: parseInt(data.projectStatus),
-            deadline: new Date(data.projectDeadline).toISOString(),
-            tasksTotal: parseInt(data.projectTasksTotal)
+        // console.log(data)
+        const response = await membersApi.post("/members", {
+            name: data.memberName,
+            role: data.memberRole,
+            email: data.memberEmail,
+            phoneNumber: data.memberPhoneNumber,
         }, {
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        console.log(response)
+
+        // console.log(response)
     }
 
     return (
         <Modal
-            isOpen={isAddProjectModalOpen}
+            isOpen={isAddMemberModalOpen}
             onRequestClose={onClose}
-            contentLabel="Create New Project"
+            contentLabel="Create New Task"
             className="bg-white p-6 rounded-lg shadow-lg w-[500px]"
             overlayClassName="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center"
         >
@@ -40,47 +42,47 @@ export default function AddProjectModal() {
                 <h2 className="text-2xl font-bold mb-4">Create New Task</h2>
                 <div className="space-y-4">
                     <div>
-                        <label htmlFor="projectTitle" className="block font-medium mb-1">
-                            Project Title
+                        <label htmlFor="memberName" className="block font-medium mb-1">
+                            Member Name
                         </label>
                         <input
                             type="text"
-                            id="projectTitle"
+                            id="memberName"
                             className="border rounded-md px-3 py-2 w-full"
-                            {...register("projectTitle")}
+                            {...register("memberName")}
                         />
                     </div>
                     <div>
-                        <label htmlFor="projectDeadline" className="block font-medium mb-1">
-                            Deadline
-                        </label>
-                        <input
-                            type="date"
-                            id="projectDeadline"
-                            className="border rounded-md px-3 py-2 w-full"
-                            {...register("projectDeadline")}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="projectTasksTotal" className="block font-medium mb-1">
-                            Tasks Total
+                        <label htmlFor="memberRole" className="block font-medium mb-1">
+                            Role
                         </label>
                         <input
                             type="text"
-                            id="projectTasksTotal"
+                            id="memberRole"
                             className="border rounded-md px-3 py-2 w-full"
-                            {...register("projectTasksTotal")}
+                            {...register("memberRole")}
                         />
                     </div>
                     <div>
-                        <label htmlFor="projectStatus" className="block font-medium mb-1">
-                            Status
+                        <label htmlFor="memberEmail" className="block font-medium mb-1">
+                            Email
                         </label>
                         <input
                             type="text"
-                            id="projectStatus"
+                            id="memberEmail"
                             className="border rounded-md px-3 py-2 w-full"
-                            {...register("projectStatus")}
+                            {...register("memberEmail")}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="memberPhoneNumber" className="block font-medium mb-1">
+                            Phone Number
+                        </label>
+                        <input
+                            type="text"
+                            id="memberPhoneNumber"
+                            className="border rounded-md px-3 py-2 w-full"
+                            {...register("memberPhoneNumber")}
                         />
                     </div>
                 </div>

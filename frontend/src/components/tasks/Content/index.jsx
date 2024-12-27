@@ -14,6 +14,7 @@ export default function Content() {
 
     //Data updated every 5s
     const tasksItems = useContext(TasksContext);
+    console.log('taskItems: ', tasksItems)
     
     const openModal = () => {
         setIsAddTaskModalOpen(true);
