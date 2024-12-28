@@ -16,7 +16,11 @@ export default function AddProjectModal() {
         console.log('data:', data)
         const response = await projectsApi.post("/projects", {
             title: data.projectTitle,
-            status: parseInt(data.projectStatus),
+            status: parseInt(
+                data.projectStatus === "In Progress" ? 0 
+                : data.projectStatus === "Finished" ? 1 
+                : data.projectStatus === "Overdue" ? 2 
+                : 4),
             deadline: new Date(data.projectDeadline).toISOString(),
             tasksTotal: parseInt(data.projectTasksTotal)
         }, {
@@ -76,12 +80,15 @@ export default function AddProjectModal() {
                         <label htmlFor="projectStatus" className="block font-medium mb-1">
                             Status
                         </label>
-                        <input
-                            type="text"
-                            id="projectStatus"
+                        <select 
                             className="border rounded-md px-3 py-2 w-full"
+                            id="projectStatus"
                             {...register("projectStatus")}
-                        />
+                        >
+                            <option>In Progress</option>
+                            <option>Finished</option>
+                            <option>Overdue</option>
+                        </select>
                     </div>
                 </div>
                 <div className="mt-6 flex justify-end">

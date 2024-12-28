@@ -18,12 +18,17 @@ export default function AddTaskModal() {
 
     const onSubmit = async (data) => {
         // console.log(data)
+        
         const response = await tasksApi.post("/tasks", {
             title: data.taskTitle,
             project: data.taskProject,
             responsible: data.taskResponsible,
             deadline: new Date(data.taskDeadline),
-            status: parseInt(data.taskStatus)
+            status: parseInt(
+                data.taskStatus === "In Progress" ? 0 
+                : data.taskStatus === "Finished" ? 1 
+                : data.taskStatus === "Overdue" ? 2 
+                : 4)
         }, {
             headers: {
                 'Content-Type': 'application/json'
@@ -103,12 +108,15 @@ export default function AddTaskModal() {
                         <label htmlFor="status" className="block font-medium mb-1">
                             Status
                         </label>
-                        <input
-                            type="text"
-                            id="taskStatus"
+                        <select 
                             className="border rounded-md px-3 py-2 w-full"
-                            {...register("taskStatus")}
-                        />
+                            id="taskResponsible"
+                            {...register("taskResponsible")}
+                        >
+                            <option>In Progress</option>
+                            <option>Finished</option>
+                            <option>Overdue</option>
+                        </select>
                     </div>
                 </div>
                 <div className="mt-6 flex justify-end">

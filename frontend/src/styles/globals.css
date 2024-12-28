@@ -6,4 +6,21 @@
   body {
     box-sizing: border-box;
   }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: white;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #dbd5db;
+    border-radius: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #8889;
+  }
 }

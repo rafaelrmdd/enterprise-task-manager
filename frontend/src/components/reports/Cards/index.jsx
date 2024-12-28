@@ -27,7 +27,7 @@ export function CardProductivity() {
             </div>
             <div className="flex justify-between">
                 <p>Total of Tasks in Overdue</p>
-                <span className="font-semibold text-red-500">8</span>
+                <span className="font-semibold text-red-500">{taskItemsInOverdue}</span>
             </div>
         </div>
     )

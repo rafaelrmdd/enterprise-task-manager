@@ -29,7 +29,7 @@ export default function Content() {
 
     return (
         <AddMemberContext.Provider value={{isAddMemberModalOpen, onClose}}>
-            <div className="flex-1">
+            <div className="flex-1 overflow-hidden">
                 <SearchBar />
                 <main className="px-6 py-6">
                     <div className="flex justify-between">
@@ -46,9 +46,9 @@ export default function Content() {
                         </div>
                     </div>
 
-                    <div className="flex flex-row gap-4 flex-wrap">
+                    <div className="flex flex-row gap-4 flex-wrap mt-6 max-h-[calc(100vh-200px)] custom-scrollbar overflow-y-auto">
                         {membersItems.map((member) => (
-                            <div className="border rounded flex flex-row gap-4 p-4 w-[32.3%] mt-6">
+                            <div className="border rounded flex flex-row gap-4 p-4 w-[32%]">
                                 <div className="flex flex-row gap-4 w-full ">
                                     <div className="flex items-center">
                                         <AiOutlineTeam className="size-10"/>
@@ -73,7 +73,6 @@ export default function Content() {
                             </div>
                         ))}
                     </div>
-
                 </main>
             </div>
             <AddMemberModal />

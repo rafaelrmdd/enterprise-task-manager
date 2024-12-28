@@ -6,5 +6,6 @@ public enum StatusEnum
 {
     InProgress,
     Finished,
-    InOverdue
+    InOverdue,
+    NotInformed
 }
