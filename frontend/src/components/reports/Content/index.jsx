@@ -1,11 +1,9 @@
 import { TbFileExport } from "react-icons/tb";
 import { CiCalendar } from "react-icons/ci";
-import { CardProductivity, CardProjectStatus, CardProjectTime } from "../Cards";
+import { CardTasksProductivity, CardProjectsProductivity } from "../Cards";
 import { GoGraph } from "react-icons/go";
-import { useContext } from "react";
-import { TasksContext } from "@/pages/_app";
 
-import PieGraph from "../Graphs/"
+import { PieGraphTasks, PieGraphProjects } from "../Graphs/"
 import SearchBar from "../../SearchBar"
 
 export default function Content() {
@@ -14,23 +12,13 @@ export default function Content() {
         <div className="flex-1">
             <SearchBar />
             <main className="p-6">
-                <div className="flex justify-between">
+                <div>
                     <h1 className="font-bold text-3xl">Reports</h1>    
-
-                    <div className="flex gap-2">
-                        <button className="flex items-center gap-2 bg-gray-300 p-2 rounded-md text-black">
-                            <CiCalendar className="size-6"/>
-                            Time
-                        </button>
-                        <button className="flex items-center gap-2 bg-blue-600 p-2 rounded-md text-white">
-                            <TbFileExport className="size-6"/>
-                            Export
-                        </button>
-                    </div>
                 </div>
 
                 <section className="flex gap-4 mt-7">
-                    <CardProductivity />
+                    <CardTasksProductivity />
+                    <CardProjectsProductivity />
                 </section>
 
                 <section className="mt-7">
@@ -41,7 +29,8 @@ export default function Content() {
                         </div>
                         
                         <div className="flex items-center">
-                            <PieGraph />
+                            <PieGraphTasks />
+                            <PieGraphProjects />
                         </div>     
                     </div>
                 </section>

@@ -33,7 +33,7 @@ public class MembersService : IMembersService
 
         if (entity is null)
         {
-            throw new NotFoundException("Members with id: " + id + "   was not found.");
+            throw new NotFoundException("Member with id: " + id + "   was not found.");
         }
 
         return entity;
