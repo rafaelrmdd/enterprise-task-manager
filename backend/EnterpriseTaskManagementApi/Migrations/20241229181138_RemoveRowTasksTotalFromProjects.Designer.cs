@@ -3,6 +3,7 @@ using System;
 using EnterpriseTaskManagementApi.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EnterpriseTaskManagementApi.Migrations
 {
     [DbContext(typeof(EnterpriseTaskManagementContext))]
-    partial class EnterpriseTaskManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20241229181138_RemoveRowTasksTotalFromProjects")]
+    partial class RemoveRowTasksTotalFromProjects
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

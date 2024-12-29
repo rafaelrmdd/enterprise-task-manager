@@ -43,8 +43,7 @@ public class ProjectsService : IProjectsService
         var entity = new Project(
             project.Title,
             project.Status,
-            project.Deadline,
-            project.TasksTotal
+            project.Deadline
         );
 
         await _context.Projects.AddAsync(entity);
@@ -65,7 +64,6 @@ public class ProjectsService : IProjectsService
         entity.Title = project.Title;
         entity.Status = project.Status;
         entity.Deadline = project.Deadline;
-        entity.TasksTotal = project.TasksTotal;
 
         await _context.SaveChangesAsync();
 
