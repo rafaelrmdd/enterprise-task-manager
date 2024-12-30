@@ -1,16 +1,10 @@
-import { TbFileExport } from "react-icons/tb";
-import { CiCalendar } from "react-icons/ci";
 import { CardTasksProductivity, CardProjectsProductivity } from "../Cards";
 import { GoGraph } from "react-icons/go";
-
 import { PieGraphTasks, PieGraphProjects } from "../Graphs/"
-import SearchBar from "../../SearchBar"
 
 export default function Content() {
-
     return (
         <div className="flex-1">
-            <SearchBar />
             <main className="p-6">
                 <div>
                     <h1 className="font-bold text-3xl">Reports</h1>    

@@ -5,9 +5,8 @@ import { MdOutlineEmail } from "react-icons/md";
 import { IoCallOutline } from "react-icons/io5";
 import { AiOutlineTeam } from "react-icons/ai";
 import { HiOutlineDotsVertical } from "react-icons/hi";
+import { IoSearchOutline } from "react-icons/io5";
 
-import Card from "../Card";
-import SearchBar from "../../SearchBar"
 import AddMemberModal from "../Modal";
 
 export const AddMemberContext = createContext();
@@ -15,10 +14,14 @@ export const AddMemberContext = createContext();
 export default function Content() {
 
     const [isAddMemberModalOpen, setIsAddMemberModalOpen] = useState(false);
+    const [searchCharacters, setSearchCharacters] = useState('');
 
     //Data updated every 5s
     const membersItems = useContext(MembersContext);
-    
+    const filteredMembersItems = membersItems.filter((member) => 
+        member.name.toLowerCase().includes(searchCharacters.toLowerCase())
+    )
+
     const openModal = () => {
         setIsAddMemberModalOpen(true);
     }
@@ -30,7 +33,21 @@ export default function Content() {
     return (
         <AddMemberContext.Provider value={{isAddMemberModalOpen, onClose}}>
             <div className="flex-1 overflow-hidden">
-                <SearchBar />
+            <div className="flex justify-between border-b p-4">
+                    {/* Search bar */}
+                    <div className="flex items-center bg-gray-100 rounded-full w-1/2 p-2">
+                        <IoSearchOutline size={24}/>
+                        <input 
+                            type="text" 
+                            placeholder="Search for members by name..."
+                            onChange={(e) => {
+                                console.log(e.target.value)
+                                setSearchCharacters(e.target.value)
+                            }}
+                            className="bg-transparent ml-2 w-full outline-none"
+                        />
+                    </div>      
+                </div> 
                 <main className="px-6 py-6">
                     <div className="flex justify-between">
                         <h1 className="font-bold text-3xl">My Workspace</h1>    
@@ -47,7 +64,7 @@ export default function Content() {
                     </div>
 
                     <div className="flex flex-row gap-4 flex-wrap mt-6 max-h-[calc(100vh-200px)] custom-scrollbar overflow-y-auto">
-                        {membersItems.map((member) => (
+                        {filteredMembersItems.map((member) => (
                             <div className="border rounded flex flex-row gap-4 p-4 w-[32%]">
                                 <div className="flex flex-row gap-4 w-full ">
                                     <div className="flex items-center">

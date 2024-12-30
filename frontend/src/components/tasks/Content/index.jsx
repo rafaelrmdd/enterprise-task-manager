@@ -1,19 +1,23 @@
 import { CiFilter } from "react-icons/ci";
 import { SlPlus } from "react-icons/sl";
-import { createContext, useState, useEffect, useContext } from "react";
-
-import SearchBar from "../../SearchBar"
-import AddTaskModal from "../Modal";
+import { createContext, useState, useContext } from "react";
 import { TasksContext } from "@/pages/_app";
+import { IoSearchOutline } from "react-icons/io5";
+
+import AddTaskModal from "../Modal";
 
 export const AddTaskContext = createContext();
 
 export default function Content() {
 
     const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
+    const [searchCharacters, setSearchCharacters] = useState('');
 
     //Data updated every 5s
     const tasksItems = useContext(TasksContext);
+    const filteredTasksItems = tasksItems.filter((task) => 
+        task.title.toLowerCase().includes(searchCharacters.toLowerCase())
+    )
     
     const openModal = () => {
         setIsAddTaskModalOpen(true);
@@ -33,7 +37,21 @@ export default function Content() {
     return (
         <AddTaskContext.Provider value={{isAddTaskModalOpen, onClose}}>
             <div className="flex-1 flex flex-col h-screen overflow-hidden">
-                <SearchBar />
+            <div className="flex justify-between border-b p-4">
+                    {/* Search bar */}
+                    <div className="flex items-center bg-gray-100 rounded-full w-1/2 p-2">
+                        <IoSearchOutline size={24}/>
+                        <input 
+                            type="text" 
+                            placeholder="Search for tasks by title..."
+                            onChange={(e) => {
+                                console.log(e.target.value)
+                                setSearchCharacters(e.target.value)
+                            }}
+                            className="bg-transparent ml-2 w-full outline-none"
+                        />
+                    </div>      
+                </div>                
                 <main className="p-6 flex flex-col flex-1">
                     <div className="flex justify-between">
                         <h1 className="font-bold text-3xl">My Workspace</h1>    
@@ -66,7 +84,7 @@ export default function Content() {
                             </thead>
 
                             <tbody className="bg-white">
-                                {tasksItems.map((task) => (
+                                {filteredTasksItems.map((task) => (
                                     <tr 
                                         className="border-b hover:bg-gray-50"
                                         key={task.id}

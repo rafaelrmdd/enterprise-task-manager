@@ -13,10 +13,13 @@ export const AddProjectContext = createContext();
 export default function Content() {
 
     const [isAddProjectModalOpen, setIsAddProjectModalOpen] = useState(false);
+    const [searchCharacters, setSearchCharacters] = useState('');
 
     //Data updated every 5s
     const projectsItems = useContext(ProjectsContext);
-    console.log('projectItems: ', projectsItems)
+    const filteredProjectItems = projectsItems.filter((project) => 
+        project.title.toLowerCase().includes(searchCharacters.toLowerCase())
+    )
     
     const openModal = () => {
         setIsAddProjectModalOpen(true);
@@ -36,25 +39,21 @@ export default function Content() {
     return (
         <AddProjectContext.Provider value={{isAddProjectModalOpen, onClose}}>
             <div className="flex-1 overflow-hidden">
-                {/* Remove this search bar later and substitute by the component SearchBar */}
                 <div className="flex justify-between border-b p-4">
                     {/* Search bar */}
                     <div className="flex items-center bg-gray-100 rounded-full w-1/2 p-2">
                         <IoSearchOutline size={24}/>
                         <input 
                             type="text" 
-                            placeholder="Search for projects, tasks..."
+                            placeholder="Search for projects by title..."
+                            onChange={(e) => {
+                                console.log(e.target.value)
+                                setSearchCharacters(e.target.value)
+                            }}
                             className="bg-transparent ml-2 w-full outline-none"
                         />
                     </div>      
-
-                    {/* Side icons */}
-                    <div className="flex gap-2">
-                        <IoIosNotificationsOutline size={32}/>
-                        <FaRegUserCircle size={32}/>
-                    </div>
                 </div>
-
                 <main className="px-6 py-6">
                     <div className="flex justify-between ">
                         <h1 className="font-bold text-3xl">My Workspace</h1>
@@ -67,7 +66,7 @@ export default function Content() {
                         </button>
                     </div>
                     <div className="flex flex-row flex-wrap gap-4 mt-6 max-h-[calc(100vh-200px)] custom-scrollbar overflow-y-auto">
-                        {projectsItems.map((project) => (
+                        {filteredProjectItems.map((project) => (
                             <div className="p-4 border rounded w-[32%]">
                                 <h2 className="font-semibold text-blue-600">{project.status}</h2>
                                 <h3 className="font-medium">{project.title}</h3>
