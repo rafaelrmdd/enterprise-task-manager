@@ -17,7 +17,7 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Project>>> GetTasksAsync()
+    public async Task<ActionResult<IEnumerable<Project>>> GetProjectsAsync()
     {
         try
         {
@@ -36,7 +36,7 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Project>> GetTaskByIdAsync(Guid id)
+    public async Task<ActionResult<Project>> GetProjectByIdAsync(Guid id)
     {
         try
         {
@@ -54,17 +54,17 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<Project> AddTaskAsync(ProjectDTO project)
+    public async Task<Project> AddProjectAsync(ProjectDTO project)
     {
         return await _service.AddProjectServiceAsync(project);
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<Project>> UpdateTaskAsync(Guid id, ProjectDTO taskItem)
+    public async Task<ActionResult<Project>> UpdateProjectAsync(Guid id, ProjectDTO project)
     {
         try
         {
-            var entity = await _service.UpdateProjectServiceAsync(id, taskItem);
+            var entity = await _service.UpdateProjectServiceAsync(id, project);
             return Ok(entity);
         }
         catch (NotFoundException e)
@@ -78,7 +78,7 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult<Project>> DeleteTaskByIdAsync(Guid id)
+    public async Task<ActionResult<Project>> DeleteProjectByIdAsync(Guid id)
     {
         try
         {

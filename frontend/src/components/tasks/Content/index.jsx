@@ -3,15 +3,21 @@ import { SlPlus } from "react-icons/sl";
 import { createContext, useState, useContext } from "react";
 import { TasksContext } from "@/pages/_app";
 import { IoSearchOutline } from "react-icons/io5";
+import { FaRegEdit } from "react-icons/fa";
+import { GoTrash } from "react-icons/go";
 
-import AddTaskModal from "../Modal";
+import AddTaskModal from "../AddTaskModal";
+import EditTaskModal from "../EditTaskModal";
+import { tasksApi } from "@/api/tasks";
 
-export const AddTaskContext = createContext();
+export const TaskModalsContext = createContext();
 
 export default function Content() {
 
     const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
+    const [isEditTaskModalOpen, setIsEditTaskModalOpen] = useState(false);
     const [searchCharacters, setSearchCharacters] = useState('');
+    const [itemToBeEdited, setItemToBeEdited] = useState('');
 
     //Data updated every 5s
     const tasksItems = useContext(TasksContext);
@@ -19,12 +25,26 @@ export default function Content() {
         task.title.toLowerCase().includes(searchCharacters.toLowerCase())
     )
     
-    const openModal = () => {
+    const openAddTaskModal = () => {
         setIsAddTaskModalOpen(true);
     }
 
-    const onClose = () => {
+    const onCloseAddTaskModal = () => {
         setIsAddTaskModalOpen(false);
+    }
+
+    const openEditTaskModal = (task) => {
+        setIsEditTaskModalOpen(true);
+        setItemToBeEdited(task)
+    }
+
+    const onCloseEditTaskModal = () => {
+        setIsEditTaskModalOpen(false);
+    }
+
+    const handleDelete = async (task) => {
+        const response = await tasksApi.delete(`/tasks/${task.id}`);
+        console.log('delete response: ', response);
     }
 
     //Convert date
@@ -35,7 +55,13 @@ export default function Content() {
     });
 
     return (
-        <AddTaskContext.Provider value={{isAddTaskModalOpen, onClose}}>
+        <TaskModalsContext.Provider
+            value=
+            {{
+                isAddTaskModalOpen, onCloseAddTaskModal,
+                isEditTaskModalOpen, onCloseEditTaskModal, itemToBeEdited
+            }}
+        >
             <div className="flex-1 flex flex-col h-screen overflow-hidden">
             <div className="flex justify-between border-b p-4">
                     {/* Search bar */}
@@ -63,7 +89,7 @@ export default function Content() {
                             </button>
                             <button 
                                 className="flex items-center gap-2 bg-blue-600 p-2 rounded-md text-white"
-                                onClick={openModal}
+                                onClick={openAddTaskModal}
                             >
                                 <SlPlus size={24} />
                                 New Task
@@ -99,6 +125,16 @@ export default function Content() {
                                             : task.status === 2 ? "Overdue"
                                             : "Not Informed"}
                                         </td>
+                                        <td className="flex gap-1 p-4 h-[57px] items-center">
+                                            <FaRegEdit 
+                                                className="hover:cursor-pointer"
+                                                onClick={() => openEditTaskModal(task)}
+                                            />
+                                            <GoTrash 
+                                                className="hover:cursor-pointer"
+                                                onClick={() => handleDelete(task)}
+                                            />
+                                        </td>
                                     </tr>   
                                 ))}
                             </tbody>
@@ -107,6 +143,7 @@ export default function Content() {
                 </main>
             </div>
             <AddTaskModal/>
-        </AddTaskContext.Provider>
+            <EditTaskModal />
+        </TaskModalsContext.Provider>
     )
 }

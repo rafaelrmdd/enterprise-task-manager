@@ -32,8 +32,6 @@ export default function App({ Component, pageProps }) {
       setTasksItems(response.data); 
     };
 
-
-
     fetchMembers();
     fetchProjects();
     fetchTasks();

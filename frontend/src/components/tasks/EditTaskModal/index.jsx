@@ -1,25 +1,21 @@
 import { useForm } from "react-hook-form";
 import { useContext, useState } from 'react';
-import { AddTaskContext } from '../Content';
-import { tasksApi } from '@/api/tasks';
+import { projectsApi } from '../../../api/projects';
+import { TaskModalsContext } from '../Content';
 
 import Modal from 'react-modal';
 import { MembersContext, ProjectsContext } from "@/pages/_app";
+import { tasksApi } from "@/api/tasks";
 
-export default function AddTaskModal() {
+export default function EditTaskModal() {
     Modal.setAppElement('#__next');
 
-    const { isAddTaskModalOpen, onClose } = useContext(AddTaskContext);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { isEditTaskModalOpen, onCloseEditTaskModal, itemToBeEdited } = useContext(TaskModalsContext);
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
-    //Data updated every 5s
-    const projectsItems = useContext(ProjectsContext);
-    const membersItems = useContext(MembersContext);
-
+    console.log('item to be edited:' , itemToBeEdited);
     const onSubmit = async (data) => {
-        // console.log(data)
-        
-        const response = await tasksApi.post("/tasks", {
+        const response = await tasksApi.put(`/tasks/${itemToBeEdited.id}`, {
             title: data.taskTitle,
             project: data.taskProject,
             responsible: data.taskResponsible,
@@ -28,27 +24,31 @@ export default function AddTaskModal() {
                 data.taskStatus === "In Progress" ? 0 
                 : data.taskStatus === "Finished" ? 1 
                 : data.taskStatus === "Overdue" ? 2 
-                : 4)
-        }, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
+                : 4
+            )
         })
 
-        // console.log(response)
+        setValue('taskTitle', '')
+        setValue('taskProject', '')
+        setValue('taskResponsible', '')
+        setValue('taskDeadline', '')
+        setValue('taskStatus', '')
     }
+
+    const projectsItems = useContext(ProjectsContext);
+    const membersItems = useContext(MembersContext);
 
     return (
         <Modal
-            isOpen={isAddTaskModalOpen}
-            onRequestClose={onClose}
-            contentLabel="Create New Task"
+            isOpen={isEditTaskModalOpen}
+            onRequestClose={onCloseEditTaskModal}
+            contentLabel="Edit Project"
             className="bg-white p-6 rounded-lg shadow-lg w-[500px]"
             overlayClassName="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center"
         >
             <form onSubmit={handleSubmit(onSubmit)}>
                 
-                <h2 className="text-2xl font-bold mb-4">Create New Task</h2>
+            <h2 className="text-2xl font-bold mb-4">Edit Task</h2>
                 <div className="space-y-4">
                     <div>
                         <label htmlFor="taskTitle" className="block font-medium mb-1">
@@ -110,8 +110,8 @@ export default function AddTaskModal() {
                         </label>
                         <select 
                             className="border rounded-md px-3 py-2 w-full"
-                            id="taskResponsible"
-                            {...register("taskResponsible")}
+                            id="taskStatus"
+                            {...register("taskStatus")}
                         >
                             <option>In Progress</option>
                             <option>Finished</option>
@@ -123,7 +123,7 @@ export default function AddTaskModal() {
                     <button
                         type="button"
                         className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-md mr-2"
-                        onClick={onClose}
+                        onClick={onCloseEditTaskModal}
                     >
                     Cancel
                     </button>

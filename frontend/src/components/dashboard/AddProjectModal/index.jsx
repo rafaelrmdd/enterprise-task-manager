@@ -1,19 +1,17 @@
 import { useForm } from "react-hook-form";
 import { useContext, useState } from 'react';
 import { projectsApi } from '../../../api/projects';
-import { AddProjectContext } from '../Content';
+import { AddProjectContext, ProjectModalsContext } from '../Content';
 
 import Modal from 'react-modal';
 
 export default function AddProjectModal() {
     Modal.setAppElement('#__next');
 
-    const { isAddProjectModalOpen, onClose } = useContext(AddProjectContext);
+    const { isAddProjectModalOpen, onCloseAddProjectModal } = useContext(ProjectModalsContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
-        //Remove logs later
-        console.log('data:', data)
         const response = await projectsApi.post("/projects", {
             title: data.projectTitle,
             status: parseInt(
@@ -22,26 +20,24 @@ export default function AddProjectModal() {
                 : data.projectStatus === "Overdue" ? 2 
                 : 4),
             deadline: new Date(data.projectDeadline).toISOString(),
-            tasksTotal: parseInt(data.projectTasksTotal)
         }, {
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        console.log(response)
     }
 
     return (
         <Modal
             isOpen={isAddProjectModalOpen}
-            onRequestClose={onClose}
+            onRequestClose={onCloseAddProjectModal}
             contentLabel="Create New Project"
             className="bg-white p-6 rounded-lg shadow-lg w-[500px]"
             overlayClassName="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center"
         >
             <form onSubmit={handleSubmit(onSubmit)}>
                 
-                <h2 className="text-2xl font-bold mb-4">Create New Task</h2>
+                <h2 className="text-2xl font-bold mb-4">Create New Project</h2>
                 <div className="space-y-4">
                     <div>
                         <label htmlFor="projectTitle" className="block font-medium mb-1">
@@ -66,17 +62,6 @@ export default function AddProjectModal() {
                         />
                     </div>
                     <div>
-                        <label htmlFor="projectTasksTotal" className="block font-medium mb-1">
-                            Tasks Total
-                        </label>
-                        <input
-                            type="text"
-                            id="projectTasksTotal"
-                            className="border rounded-md px-3 py-2 w-full"
-                            {...register("projectTasksTotal")}
-                        />
-                    </div>
-                    <div>
                         <label htmlFor="projectStatus" className="block font-medium mb-1">
                             Status
                         </label>
@@ -95,7 +80,7 @@ export default function AddProjectModal() {
                     <button
                         type="button"
                         className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-md mr-2"
-                        onClick={onClose}
+                        onClick={onCloseAddProjectModal}
                     >
                     Cancel
                     </button>
