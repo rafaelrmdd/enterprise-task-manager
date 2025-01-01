@@ -1,45 +1,42 @@
 import { useForm } from "react-hook-form";
-import { useContext, useState } from 'react';
-import { AddMemberContext, AddTaskContext } from '../Content';
-import { tasksApi } from '@/api/tasks';
-import { ProjectsContext } from "@/pages/_app";
-import { membersApi } from "@/api/members";
+import { useContext } from 'react';
+import { TeamModalsContext } from '../Content';
+import { membersApi } from "../../../api/members";
 
 import Modal from 'react-modal';
 
 export default function AddMemberModal() {
     Modal.setAppElement('#__next');
 
-    const { isAddMemberModalOpen, onClose } = useContext(AddMemberContext);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { isAddMemberModalOpen, onClose } = useContext(TeamModalsContext);
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
-        // console.log(data)
         const response = await membersApi.post("/members", {
             name: data.memberName,
             role: data.memberRole,
             email: data.memberEmail,
             phoneNumber: data.memberPhoneNumber,
-        }, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
+        });
 
-        // console.log(response)
+        setValue('memberName', '');
+        setValue('memberRole', '');
+        setValue('memberEmail', '');
+        setValue('memberPhoneNumber', '');
+        
     }
 
     return (
         <Modal
             isOpen={isAddMemberModalOpen}
             onRequestClose={onClose}
-            contentLabel="Create New Task"
+            contentLabel="Add New Member"
             className="bg-white p-6 rounded-lg shadow-lg w-[500px]"
             overlayClassName="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center"
         >
             <form onSubmit={handleSubmit(onSubmit)}>
                 
-                <h2 className="text-2xl font-bold mb-4">Create New Task</h2>
+                <h2 className="text-2xl font-bold mb-4">Add New Member</h2>
                 <div className="space-y-4">
                     <div>
                         <label htmlFor="memberName" className="block font-medium mb-1">

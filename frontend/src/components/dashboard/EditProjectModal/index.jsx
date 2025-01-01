@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { projectsApi } from '../../../api/projects';
-import { AddProjectContext, ProjectModalsContext } from '../Content';
+import { ProjectModalsContext } from '../Content';
 
 import Modal from 'react-modal';
 

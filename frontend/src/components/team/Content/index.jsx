@@ -1,20 +1,25 @@
 import { SlPlus } from "react-icons/sl"
-import { MembersContext } from "@/pages/_app";
+import { MembersContext } from "../../../pages/_app";
 import { createContext, useState, useContext} from "react";
 import { MdOutlineEmail } from "react-icons/md";
 import { IoCallOutline } from "react-icons/io5";
 import { AiOutlineTeam } from "react-icons/ai";
-import { HiOutlineDotsVertical } from "react-icons/hi";
+import { FaRegEdit } from "react-icons/fa";
+import { GoTrash } from "react-icons/go";
+import { membersApi } from "@/api/members";
 import { IoSearchOutline } from "react-icons/io5";
 
-import AddMemberModal from "../Modal";
+import EditMemberModal from "../EditMemberModal";
+import AddMemberModal from "../AddMemberModal";
 
-export const AddMemberContext = createContext();
+export const TeamModalsContext = createContext();
 
 export default function Content() {
 
     const [isAddMemberModalOpen, setIsAddMemberModalOpen] = useState(false);
+    const [isEditMemberModalOpen, setIsEditMemberModalOpen] = useState(false);
     const [searchCharacters, setSearchCharacters] = useState('');
+    const [itemToBeEdited, setItemToBeEdited] = useState('');
 
     //Data updated every 5s
     const membersItems = useContext(MembersContext);
@@ -26,12 +31,33 @@ export default function Content() {
         setIsAddMemberModalOpen(true);
     }
 
-    const onClose = () => {
+    const onCloseAddMemberModal = () => {
         setIsAddMemberModalOpen(false);
     }
 
+    const openEditMemberModal = (member) => {
+        setIsEditMemberModalOpen(true);
+        setItemToBeEdited(member)
+    }
+
+    const onCloseEditMemberModal = () => {
+        setIsEditMemberModalOpen(false);
+    }
+
+    const handleDelete = async (member) => {
+        const response = await membersApi.delete(`/members/${member.id}`);
+        console.log('delete response: ', response);
+    }
+
     return (
-        <AddMemberContext.Provider value={{isAddMemberModalOpen, onClose}}>
+        <TeamModalsContext.Provider 
+            value=
+            {{
+                isAddMemberModalOpen, onCloseAddMemberModal,
+                isEditMemberModalOpen, onCloseEditMemberModal, itemToBeEdited
+
+            }}
+        >
             <div className="flex-1 overflow-hidden">
             <div className="flex justify-between border-b p-4">
                     {/* Search bar */}
@@ -72,13 +98,23 @@ export default function Content() {
                                     </div>
                     
                                     <div className="w-full">
-                                        <div>
+                                        <div className="flex justify-between">
                                             <p className="font-semibold text-lg">{member.name}</p>
+                                            <div className="flex gap-1 items-center">
+                                                <FaRegEdit
+                                                    className="hover:cursor-pointer"
+                                                    onClick={() => openEditMemberModal(member)}
+                                                />
+                                                <GoTrash
+                                                    className="hover:cursor-pointer"
+                                                    onClick={() => handleDelete(member)}
+                                                />
+                                            </div>
                                         </div>
                                         
                                         <div className="flex justify-between">
                                             <p className="text-gray-500">{member.role}</p>
-                                            <HiOutlineDotsVertical className="size-6 text-gray-500"/>
+                                            
                                         </div>
                                         
                                         <div className="flex gap-2">
@@ -93,7 +129,8 @@ export default function Content() {
                 </main>
             </div>
             <AddMemberModal />
-        </AddMemberContext.Provider>
+            <EditMemberModal />
+        </TeamModalsContext.Provider>
         
     )
 }

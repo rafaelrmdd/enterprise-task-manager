@@ -1,12 +1,12 @@
 import { IoSearchOutline } from "react-icons/io5";
 import { SlPlus } from "react-icons/sl";
 import { createContext, useState, useContext } from "react";
-import { ProjectsContext } from "@/pages/_app";
+import { ProjectsContext } from "../../../pages/_app";
 import { FaRegEdit } from "react-icons/fa";
 import { GoTrash } from "react-icons/go";
+import { projectsApi } from "../../../api/projects";
 
 import AddProjectModal from "../AddProjectModal";
-import { projectsApi } from "@/api/projects";
 import EditProjectModal from "../EditProjectModal";
 
 export const ProjectModalsContext = createContext();
@@ -92,7 +92,12 @@ export default function Content() {
                         {filteredProjectItems.map((project) => (
                             <div className="p-4 border rounded w-[32%]" key={project.id}>
                                 <div className="flex justify-between">
-                                    <h2 className="font-semibold text-blue-600">{project.status}</h2>
+                                    <h2 className="font-semibold text-blue-600">
+                                        {project.status === 0 ? "In Progress" 
+                                        : project.status === 1 ? "Finished" 
+                                        : project.status === 2 ? "Overdue"
+                                        : "Not Informed"}
+                                    </h2>
                                     <div className="flex gap-1">
                                         <FaRegEdit 
                                             className="hover:cursor-pointer"

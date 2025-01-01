@@ -1,14 +1,14 @@
 import { CiFilter } from "react-icons/ci";
 import { SlPlus } from "react-icons/sl";
 import { createContext, useState, useContext } from "react";
-import { TasksContext } from "@/pages/_app";
+import { TasksContext } from "../../../pages/_app"
 import { IoSearchOutline } from "react-icons/io5";
 import { FaRegEdit } from "react-icons/fa";
 import { GoTrash } from "react-icons/go";
+import { tasksApi } from "../../../api/tasks";
 
 import AddTaskModal from "../AddTaskModal";
 import EditTaskModal from "../EditTaskModal";
-import { tasksApi } from "@/api/tasks";
 
 export const TaskModalsContext = createContext();
 

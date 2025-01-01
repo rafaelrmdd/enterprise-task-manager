@@ -1,8 +1,6 @@
 import { TbFileExport } from "react-icons/tb";
-import { GoClock } from "react-icons/go";
-import { AiOutlineProject } from "react-icons/ai";
 import { useContext } from "react";
-import { ProjectsContext, TasksContext } from "@/pages/_app";
+import { ProjectsContext, TasksContext } from "../../../pages/_app";
 
 export function CardTasksProductivity() {
     const tasksItems = useContext(TasksContext);

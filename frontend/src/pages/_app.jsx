@@ -1,9 +1,9 @@
-import "@/styles/globals.css";
-
-import { tasksApi } from "../api/tasks"
+import { tasksApi } from "../api/tasks";
 import { projectsApi } from "../api/projects";
+import { membersApi } from "../api/members";
 import { createContext, useState, useEffect } from "react";
-import { membersApi } from "@/api/members";
+
+import "@/styles/globals.css";
 
 export const TasksContext = createContext();
 export const ProjectsContext = createContext();
@@ -18,18 +18,33 @@ export default function App({ Component, pageProps }) {
   //Keep all the data updated every 5s
   useEffect(() => {
     const fetchMembers = async () => {
-      const response = await membersApi.get('/members');
-      setMembersItems(response.data); 
+      try{
+        const response = await membersApi.get('/members');
+        setMembersItems(response.data); 
+      }catch(e){
+        console.log(e);
+      }
+      
     }
 
     const fetchProjects = async () => {
-      const response = await projectsApi.get('/projects');
-      setProjectsItems(response.data); 
+      try{
+        const response = await projectsApi.get('/projects');
+        setProjectsItems(response.data); 
+      }catch(e){
+        console.log(e);
+      }
+      
     }
 
     const fetchTasks = async () => {
-      const response = await tasksApi.get('/tasks');
-      setTasksItems(response.data); 
+      try{
+        const response = await tasksApi.get('/tasks');
+        setTasksItems(response.data);
+      }catch(e){
+        console.log(e);
+      }
+       
     };
 
     fetchMembers();

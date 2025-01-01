@@ -2,8 +2,8 @@ import { RxDashboard } from "react-icons/rx";
 import { BsListTask } from "react-icons/bs";
 import { AiOutlineTeam } from "react-icons/ai";
 import { TbReportAnalytics } from "react-icons/tb";
-import Link from "next/link";
 
+import Link from "next/link";
 
 export default function Sidebar() {
     return (

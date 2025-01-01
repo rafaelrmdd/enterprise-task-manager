@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useContext } from 'react';
 import { TaskModalsContext } from '../Content';
-import { tasksApi } from '@/api/tasks';
+import { tasksApi } from '../../../api/tasks';
+import { MembersContext, ProjectsContext } from "../../../pages/_app";
 
 import Modal from 'react-modal';
-import { MembersContext, ProjectsContext } from "@/pages/_app";
 
 export default function AddTaskModal() {
     Modal.setAppElement('#__next');

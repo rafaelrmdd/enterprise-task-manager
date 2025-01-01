@@ -1,11 +1,10 @@
 import { useForm } from "react-hook-form";
-import { useContext, useState } from 'react';
-import { projectsApi } from '../../../api/projects';
+import { useContext } from 'react';
 import { TaskModalsContext } from '../Content';
-
-import Modal from 'react-modal';
 import { MembersContext, ProjectsContext } from "@/pages/_app";
 import { tasksApi } from "@/api/tasks";
+
+import Modal from 'react-modal';
 
 export default function EditTaskModal() {
     Modal.setAppElement('#__next');
@@ -42,7 +41,7 @@ export default function EditTaskModal() {
         <Modal
             isOpen={isEditTaskModalOpen}
             onRequestClose={onCloseEditTaskModal}
-            contentLabel="Edit Project"
+            contentLabel="Edit Task"
             className="bg-white p-6 rounded-lg shadow-lg w-[500px]"
             overlayClassName="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center"
         >

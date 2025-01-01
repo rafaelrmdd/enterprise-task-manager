@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { projectsApi } from '../../../api/projects';
-import { AddProjectContext, ProjectModalsContext } from '../Content';
+import { ProjectModalsContext } from '../Content';
 
 import Modal from 'react-modal';
 
@@ -9,7 +9,7 @@ export default function AddProjectModal() {
     Modal.setAppElement('#__next');
 
     const { isAddProjectModalOpen, onCloseAddProjectModal } = useContext(ProjectModalsContext);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
         const response = await projectsApi.post("/projects", {
@@ -20,11 +20,11 @@ export default function AddProjectModal() {
                 : data.projectStatus === "Overdue" ? 2 
                 : 4),
             deadline: new Date(data.projectDeadline).toISOString(),
-        }, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
         })
+
+        setValue('projectTitle', '')
+        setValue('projectStatus', '')
+        setValue('projectDeadline', '')
     }
 
     return (

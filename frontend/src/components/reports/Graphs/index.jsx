@@ -1,7 +1,6 @@
 import { PieChart } from '@mui/x-charts/PieChart';
 import { useContext } from 'react';
-import { TasksContext } from '@/pages/_app';
-import { ProjectsContext } from '@/pages/_app';
+import { ProjectsContext, TasksContext } from '../../../pages/_app';
 
 export function PieGraphTasks() {
 
