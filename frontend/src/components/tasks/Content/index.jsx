@@ -44,7 +44,7 @@ export default function Content() {
 
     const handleDelete = async (task) => {
         const response = await tasksApi.delete(`/tasks/${task.id}`);
-        console.log('delete response: ', response);
+        console.log('delete response:' , response)
     }
 
     //Convert date
@@ -71,7 +71,6 @@ export default function Content() {
                             type="text" 
                             placeholder="Search for tasks by title..."
                             onChange={(e) => {
-                                console.log(e.target.value)
                                 setSearchCharacters(e.target.value)
                             }}
                             className="bg-transparent ml-2 w-full outline-none"
@@ -80,7 +79,7 @@ export default function Content() {
                 </div>                
                 <main className="p-6 flex flex-col flex-1">
                     <div className="flex justify-between">
-                        <h1 className="font-bold text-3xl">My Workspace</h1>    
+                        <h1 className="font-bold text-3xl">My Tasks</h1>    
                         
                         <div className="flex gap-2">
                             <button className="flex items-center gap-2 bg-gray-300 p-2 rounded-md text-black">
@@ -110,7 +109,7 @@ export default function Content() {
                             </thead>
 
                             <tbody className="bg-white">
-                                {filteredTasksItems.map((task) => (
+                                {filteredTasksItems.length >= 1 ? filteredTasksItems.map((task) => (
                                     <tr 
                                         className="border-b hover:bg-gray-50"
                                         key={task.id}
@@ -136,7 +135,7 @@ export default function Content() {
                                             />
                                         </td>
                                     </tr>   
-                                ))}
+                                )) : <tr><td className="p-4 text-gray-400">You dont have any task</td></tr>}
                             </tbody>
                         </table>
                     </div>

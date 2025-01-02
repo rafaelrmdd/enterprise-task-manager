@@ -11,8 +11,7 @@ export default function EditTaskModal() {
 
     const { isEditTaskModalOpen, onCloseEditTaskModal, itemToBeEdited } = useContext(TaskModalsContext);
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
-
-    console.log('item to be edited:' , itemToBeEdited);
+    
     const onSubmit = async (data) => {
         const response = await tasksApi.put(`/tasks/${itemToBeEdited.id}`, {
             title: data.taskTitle,

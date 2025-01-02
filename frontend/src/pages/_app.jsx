@@ -21,30 +21,30 @@ export default function App({ Component, pageProps }) {
       try{
         const response = await membersApi.get('/members');
         setMembersItems(response.data); 
-      }catch(e){
-        console.log(e);
+      }catch(error) {
+        console.log(error)
+        setMembersItems([]);
       }
-      
     }
 
     const fetchProjects = async () => {
       try{
         const response = await projectsApi.get('/projects');
         setProjectsItems(response.data); 
-      }catch(e){
-        console.log(e);
+      }catch(error) {
+        console.log(error);
+        setProjectsItems([]);
       }
-      
     }
 
     const fetchTasks = async () => {
       try{
         const response = await tasksApi.get('/tasks');
         setTasksItems(response.data);
-      }catch(e){
-        console.log(e);
+      }catch(error){
+        console.log(error)
+        setTasksItems([]);
       }
-       
     };
 
     fetchMembers();
@@ -55,7 +55,7 @@ export default function App({ Component, pageProps }) {
       fetchMembers();
       fetchProjects();
       fetchTasks();
-    }, 5000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);

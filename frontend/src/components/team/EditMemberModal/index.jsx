@@ -12,7 +12,6 @@ export default function EditMemberModal() {
     const { isEditMemberModalOpen, onCloseEditMemberModal, itemToBeEdited } = useContext(TeamModalsContext);
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
-    console.log('item to be edited:' , itemToBeEdited);
     const onSubmit = async (data) => {
         const response = await membersApi.put(`/members/${itemToBeEdited.id}`, {
             name: data.memberName,

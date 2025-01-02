@@ -27,7 +27,7 @@ export default function Content() {
         member.name.toLowerCase().includes(searchCharacters.toLowerCase())
     )
 
-    const openModal = () => {
+    const openAddMemberModal = () => {
         setIsAddMemberModalOpen(true);
     }
 
@@ -46,7 +46,6 @@ export default function Content() {
 
     const handleDelete = async (member) => {
         const response = await membersApi.delete(`/members/${member.id}`);
-        console.log('delete response: ', response);
     }
 
     return (
@@ -67,7 +66,6 @@ export default function Content() {
                             type="text" 
                             placeholder="Search for members by name..."
                             onChange={(e) => {
-                                console.log(e.target.value)
                                 setSearchCharacters(e.target.value)
                             }}
                             className="bg-transparent ml-2 w-full outline-none"
@@ -81,7 +79,7 @@ export default function Content() {
                         <div className="flex gap-2">
                             <button 
                                 className="flex items-center gap-2 bg-blue-600 p-2 rounded-md text-white"
-                                onClick={openModal}
+                                onClick={openAddMemberModal}
                             >
                                 <SlPlus size={24} />
                                 New Member
@@ -90,7 +88,7 @@ export default function Content() {
                     </div>
 
                     <div className="flex flex-row gap-4 flex-wrap mt-6 max-h-[calc(100vh-200px)] custom-scrollbar overflow-y-auto">
-                        {filteredMembersItems.map((member) => (
+                        {filteredMembersItems.length >= 1 ? filteredMembersItems.map((member) => (
                             <div className="border rounded flex flex-row gap-4 p-4 w-[32%]">
                                 <div className="flex flex-row gap-4 w-full ">
                                     <div className="flex items-center">
@@ -124,7 +122,7 @@ export default function Content() {
                                     </div>  
                                 </div>
                             </div>
-                        ))}
+                        )) : <p className="text-gray-400">You dont have any member</p>}
                     </div>
                 </main>
             </div>

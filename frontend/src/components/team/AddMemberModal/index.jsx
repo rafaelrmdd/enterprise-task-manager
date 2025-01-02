@@ -8,7 +8,7 @@ import Modal from 'react-modal';
 export default function AddMemberModal() {
     Modal.setAppElement('#__next');
 
-    const { isAddMemberModalOpen, onClose } = useContext(TeamModalsContext);
+    const { isAddMemberModalOpen, onCloseAddMemberModal } = useContext(TeamModalsContext);
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
@@ -29,7 +29,7 @@ export default function AddMemberModal() {
     return (
         <Modal
             isOpen={isAddMemberModalOpen}
-            onRequestClose={onClose}
+            onRequestClose={onCloseAddMemberModal}
             contentLabel="Add New Member"
             className="bg-white p-6 rounded-lg shadow-lg w-[500px]"
             overlayClassName="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center"
@@ -87,7 +87,7 @@ export default function AddMemberModal() {
                     <button
                         type="button"
                         className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-md mr-2"
-                        onClick={onClose}
+                        onClick={onCloseAddMemberModal}
                     >
                     Cancel
                     </button>

@@ -43,7 +43,6 @@ export default function Content() {
 
     const handleDelete = async (project) => {
         const response = await projectsApi.delete(`/projects/${project.id}`);
-        console.log('delete response: ', response);
     }
 
     //Convert date
@@ -70,7 +69,6 @@ export default function Content() {
                             type="text" 
                             placeholder="Search for projects by title..."
                             onChange={(e) => {
-                                console.log(e.target.value)
                                 setSearchCharacters(e.target.value)
                             }}
                             className="bg-transparent ml-2 w-full outline-none"
@@ -89,7 +87,7 @@ export default function Content() {
                         </button>
                     </div>
                     <div className="flex flex-row flex-wrap gap-4 mt-6 max-h-[calc(100vh-200px)] custom-scrollbar overflow-y-auto">
-                        {filteredProjectItems.map((project) => (
+                        {filteredProjectItems.length >= 1 ? filteredProjectItems.map((project) => (
                             <div className="p-4 border rounded w-[32%]" key={project.id}>
                                 <div className="flex justify-between">
                                     <h2 className="font-semibold text-blue-600">
@@ -116,7 +114,7 @@ export default function Content() {
                                 </div>
                                 <span className="text-sm text-gray-500">50%</span>
                             </div>
-                        ))}
+                        )) : <p className="text-gray-400">You dont have any project</p>}
                     </div>        
                 </main>
             </div>
