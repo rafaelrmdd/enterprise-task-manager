@@ -97,7 +97,7 @@ export default function Content() {
                     
                                     <div className="w-full">
                                         <div className="flex justify-between">
-                                            <p className="font-semibold text-lg">{member.name}</p>
+                                            <h2 className="font-semibold text-lg">{member.name}</h2>
                                             <div className="flex gap-1 items-center">
                                                 <FaRegEdit
                                                     className="hover:cursor-pointer"
@@ -110,15 +110,9 @@ export default function Content() {
                                             </div>
                                         </div>
                                         
-                                        <div className="flex justify-between">
-                                            <p className="text-gray-500">{member.role}</p>
-                                            
-                                        </div>
-                                        
-                                        <div className="flex gap-2">
-                                            <MdOutlineEmail className="size-6 text-gray-500"/>
-                                            <IoCallOutline className="size-6 text-gray-500"/>
-                                        </div>
+                                        <h3 className="text-gray-500">{member.role}</h3>
+                                        <h2 className="text-gray-500">{member.phoneNumber}</h2>
+                                        <h2 className="text-gray-500">{member.email}</h2>
                                     </div>  
                                 </div>
                             </div>

@@ -1,7 +1,7 @@
 import { IoSearchOutline } from "react-icons/io5";
 import { SlPlus } from "react-icons/sl";
 import { createContext, useState, useContext } from "react";
-import { ProjectsContext } from "../../../pages/_app";
+import { ProjectsContext, TasksContext } from "../../../pages/_app";
 import { FaRegEdit } from "react-icons/fa";
 import { GoTrash } from "react-icons/go";
 import { projectsApi } from "../../../api/projects";
@@ -20,6 +20,14 @@ export default function Content() {
 
     //Data updated every 5s
     const projectsItems = useContext(ProjectsContext);
+    const tasks = useContext(TasksContext)
+    const tasksInProgress = tasks.filter(task => task.status === 0).length;
+    const tasksFinished = tasks.filter(task => task.status === 1).length;
+    const tasksInOverdue = tasks.filter(task => task.status === 2).length
+    const tasksTotal = tasksInProgress + tasksInOverdue + tasksFinished;
+
+    const percentage = (tasksFinished / tasksTotal) * 100;
+
     const filteredProjectItems = projectsItems.filter((project) => 
         project.title.toLowerCase().includes(searchCharacters.toLowerCase())
     )
@@ -44,6 +52,7 @@ export default function Content() {
     const handleDelete = async (project) => {
         const response = await projectsApi.delete(`/projects/${project.id}`);
     }
+
 
     //Convert date
     const usFormat = Intl.DateTimeFormat('en-US', {
@@ -112,7 +121,7 @@ export default function Content() {
                                 <div className="flex justify-between text-sm text-gray-500 mt-2">
                                     <span>Deadline:</span> <span>{usFormat.format(new Date(project.deadline))}</span>
                                 </div>
-                                <span className="text-sm text-gray-500">50%</span>
+                                <span className="text-sm text-gray-500">{Math.round(percentage)}%</span>
                             </div>
                         )) : <p className="text-gray-400">You dont have any project</p>}
                     </div>        

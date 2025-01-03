@@ -118,7 +118,7 @@ export default function Content() {
                                         <td className="p-4">{task.project}</td>
                                         <td className="p-4">{task.responsible}</td>
                                         <td className="p-4">{usFormat.format(new Date(task.deadline))}</td>
-                                        <td className="p-4">
+                                        <td className="p-4 text-blue-600">
                                             {task.status === 0 ? "In Progress" 
                                             : task.status === 1 ? "Finished" 
                                             : task.status === 2 ? "Overdue"
