@@ -5,7 +5,7 @@ import { TasksContext } from "../../../pages/_app"
 import { IoSearchOutline } from "react-icons/io5";
 import { FaRegEdit } from "react-icons/fa";
 import { GoTrash } from "react-icons/go";
-import { tasksApi } from "../../../api/tasks";
+import { supabase } from "../../../api/api";
 
 import AddTaskModal from "../AddTaskModal";
 import EditTaskModal from "../EditTaskModal";
@@ -43,15 +43,18 @@ export default function Content() {
     }
 
     const handleDelete = async (task) => {
-        const response = await tasksApi.delete(`/tasks/${task.id}`);
-        console.log('delete response:' , response)
+        const { error } = await supabase
+            .from('Tasks')
+            .delete()
+            .eq('id', `${task.id}`)
     }
 
     //Convert date
     const usFormat = Intl.DateTimeFormat('en-US', {
         year: 'numeric',
         month: '2-digit',
-        day: '2-digit'
+        day: '2-digit',
+        timeZone: 'UTC'
     });
 
     return (

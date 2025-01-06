@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EnterpriseTaskManagementApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+72fe7a9a61d26d5648fceb502755a0c3fdc13d8e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b80dc194dc4bd3d7cd5dd47c8555e6b6d89a7f90")]
 [assembly: System.Reflection.AssemblyProductAttribute("EnterpriseTaskManagementApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EnterpriseTaskManagementApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

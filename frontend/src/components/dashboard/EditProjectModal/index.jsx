@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useContext } from 'react';
-import { projectsApi } from '../../../api/projects';
 import { ProjectModalsContext } from '../Content';
+import { supabase } from "../../../api/api";
 
 import Modal from 'react-modal';
 
@@ -11,23 +11,25 @@ export default function EditProjectModal() {
     const { isEditProjectModalOpen, onCloseEditProjectModal, itemToBeEdited } = useContext(ProjectModalsContext);
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
-    //console.log('item to be edited:' , itemToBeEdited);
-    const onSubmit = async (data) => {
-       const response = projectsApi.put(`/projects/${itemToBeEdited.id}`, {
-        title: data.projectTitle,
-        status: parseInt(
-            data.projectStatus === "In Progress" ? 0 
-            : data.projectStatus === "Finished" ? 1 
-            : data.projectStatus === "Overdue" ? 2 
-            : 4),
-        deadline: new Date(data.projectDeadline).toISOString(),
-       })
+    const onSubmit = async (dataForm) => {
+       const { data, error } = await supabase
+            .from('Projects')
+            .update
+            ({
+                title: dataForm.projectTitle,
+                status: parseInt(
+                    dataForm.projectStatus === "In Progress" ? 0 
+                    : dataForm.projectStatus === "Finished" ? 1 
+                    : dataForm.projectStatus === "Overdue" ? 2 
+                    : 4),
+                deadline: new Date(dataForm.projectDeadline).toISOString(),
+            })
+            .eq('id', `${itemToBeEdited.id}`)
+            .select()
 
        setValue('projectTitle', '')
        setValue('projectStatus', '')
        setValue('projectDeadline', '')
-
-       console.log('response:', response);
     }
 
     return (

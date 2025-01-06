@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useContext } from 'react';
 import { TeamModalsContext } from '../Content';
-import { membersApi } from "../../../api/members";
+import { supabase } from "../../../api/api";
 
 import Modal from 'react-modal';
 
@@ -11,19 +11,23 @@ export default function AddMemberModal() {
     const { isAddMemberModalOpen, onCloseAddMemberModal } = useContext(TeamModalsContext);
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
-    const onSubmit = async (data) => {
-        const response = await membersApi.post("/members", {
-            name: data.memberName,
-            role: data.memberRole,
-            email: data.memberEmail,
-            phoneNumber: data.memberPhoneNumber,
-        });
+    const onSubmit = async (dataForm) => {
+        const { data, error } = await supabase
+            .from('Members')
+            .insert([
+                {
+                    name: dataForm.memberName,
+                    role: dataForm.memberRole,
+                    email: dataForm.memberEmail,
+                    phoneNumber: dataForm.memberPhoneNumber,
+                },
+            ])
+            .select()
 
         setValue('memberName', '');
         setValue('memberRole', '');
         setValue('memberEmail', '');
         setValue('memberPhoneNumber', '');
-        
     }
 
     return (

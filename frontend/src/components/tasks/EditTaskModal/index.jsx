@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useContext } from 'react';
 import { TaskModalsContext } from '../Content';
 import { MembersContext, ProjectsContext } from "@/pages/_app";
-import { tasksApi } from "@/api/tasks";
+import { supabase } from "../../../api/api";
 
 import Modal from 'react-modal';
 
@@ -12,19 +12,24 @@ export default function EditTaskModal() {
     const { isEditTaskModalOpen, onCloseEditTaskModal, itemToBeEdited } = useContext(TaskModalsContext);
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     
-    const onSubmit = async (data) => {
-        const response = await tasksApi.put(`/tasks/${itemToBeEdited.id}`, {
-            title: data.taskTitle,
-            project: data.taskProject,
-            responsible: data.taskResponsible,
-            deadline: new Date(data.taskDeadline),
-            status: parseInt(
-                data.taskStatus === "In Progress" ? 0 
-                : data.taskStatus === "Finished" ? 1 
-                : data.taskStatus === "Overdue" ? 2 
-                : 4
-            )
-        })
+    const onSubmit = async (dataForm) => {
+        const { data, error } = await supabase
+            .from('Tasks')
+            .update
+            ({
+                title: dataForm.taskTitle,
+                project: dataForm.taskProject,
+                responsible: dataForm.taskResponsible,
+                deadline: new Date(dataForm.taskDeadline),
+                status: parseInt(
+                    dataForm.taskStatus === "In Progress" ? 0 
+                    : dataForm.taskStatus === "Finished" ? 1 
+                    : dataForm.taskStatus === "Overdue" ? 2 
+                    : 4
+                )
+            })
+            .eq('id', `${itemToBeEdited.id}`)
+            .select()
 
         setValue('taskTitle', '')
         setValue('taskProject', '')

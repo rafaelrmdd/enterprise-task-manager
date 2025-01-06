@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useContext } from 'react';
 import { TaskModalsContext } from '../Content';
-import { tasksApi } from '../../../api/tasks';
 import { MembersContext, ProjectsContext } from "../../../pages/_app";
 
 import Modal from 'react-modal';
+import { supabase } from "@/api/api";
 
 export default function AddTaskModal() {
     Modal.setAppElement('#__next');
@@ -16,24 +16,24 @@ export default function AddTaskModal() {
     const projectsItems = useContext(ProjectsContext);
     const membersItems = useContext(MembersContext);
 
-    const onSubmit = async (data) => {
-        // console.log(data)
-        const response = await tasksApi.post("/tasks", {
-            title: data.taskTitle,
-            project: data.taskProject,
-            responsible: data.taskResponsible,
-            deadline: new Date(data.taskDeadline),
-            status: parseInt(
-                data.taskStatus === "In Progress" ? 0 
-                : data.taskStatus === "Finished" ? 1 
-                : data.taskStatus === "Overdue" ? 2 
-                : 4
-            )
-        }, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
+    const onSubmit = async (dataForm) => {
+        const { data, error } = await supabase
+            .from('Tasks')
+            .insert([
+                {
+                    title: dataForm.taskTitle,
+                    project: dataForm.taskProject,
+                    responsible: dataForm.taskResponsible,
+                    deadline: new Date(dataForm.taskDeadline),
+                    status: parseInt(
+                        dataForm.taskStatus === "In Progress" ? 0 
+                        : dataForm.taskStatus === "Finished" ? 1 
+                        : dataForm.taskStatus === "Overdue" ? 2 
+                        : 4
+                    )
+                },
+            ])
+            .select()
 
         setValue('taskTitle', '')
         setValue('taskProject', '')

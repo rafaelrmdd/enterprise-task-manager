@@ -1,7 +1,5 @@
-import { tasksApi } from "../api/tasks";
-import { projectsApi } from "../api/projects";
-import { membersApi } from "../api/members";
 import { createContext, useState, useEffect } from "react";
+import { supabase } from "../api/api";
 
 import "@/styles/globals.css";
 
@@ -19,8 +17,11 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     const fetchMembers = async () => {
       try{
-        const response = await membersApi.get('/members');
-        setMembersItems(response.data); 
+        let { data, error } = await supabase
+          .from('Members')
+          .select('*')
+
+        setMembersItems(data); 
       }catch(error) {
         console.log(error)
         setMembersItems([]);
@@ -29,8 +30,11 @@ export default function App({ Component, pageProps }) {
 
     const fetchProjects = async () => {
       try{
-        const response = await projectsApi.get('/projects');
-        setProjectsItems(response.data); 
+        let { data, error } = await supabase
+          .from('Projects')
+          .select('*')
+
+        setProjectsItems(data); 
       }catch(error) {
         console.log(error);
         setProjectsItems([]);
@@ -39,8 +43,11 @@ export default function App({ Component, pageProps }) {
 
     const fetchTasks = async () => {
       try{
-        const response = await tasksApi.get('/tasks');
-        setTasksItems(response.data);
+        let { data, error } = await supabase
+          .from('Tasks')
+          .select('*')
+
+        setTasksItems(data);
       }catch(error){
         console.log(error)
         setTasksItems([]);

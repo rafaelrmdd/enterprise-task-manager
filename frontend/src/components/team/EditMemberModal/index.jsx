@@ -1,10 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useContext } from 'react';
 import { TeamModalsContext } from '../Content';
-import { MembersContext, ProjectsContext } from "@/pages/_app";
-
 import Modal from 'react-modal';
-import { membersApi } from "@/api/members";
+import { supabase } from "@/api/api";
 
 export default function EditMemberModal() {
     Modal.setAppElement('#__next');
@@ -12,13 +10,18 @@ export default function EditMemberModal() {
     const { isEditMemberModalOpen, onCloseEditMemberModal, itemToBeEdited } = useContext(TeamModalsContext);
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
-    const onSubmit = async (data) => {
-        const response = await membersApi.put(`/members/${itemToBeEdited.id}`, {
-            name: data.memberName,
-            role: data.memberRole,
-            email: data.memberEmail,
-            phoneNumber: data.memberPhoneNumber
-        });
+    const onSubmit = async (dataForm) => {
+        const { data, error } = await supabase
+            .from('Members')
+            .update
+            ({
+                name: dataForm.memberName,
+                role: dataForm.memberRole,
+                email: dataForm.memberEmail,
+                phoneNumber: dataForm.memberPhoneNumber
+            })
+            .eq('id', `${itemToBeEdited.id}`)
+            .select()
 
         setValue('memberName', '');
         setValue('memberRole', '');

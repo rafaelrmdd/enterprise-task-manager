@@ -4,7 +4,7 @@ import { createContext, useState, useContext } from "react";
 import { ProjectsContext, TasksContext } from "../../../pages/_app";
 import { FaRegEdit } from "react-icons/fa";
 import { GoTrash } from "react-icons/go";
-import { projectsApi } from "../../../api/projects";
+import { supabase } from "../../../api/api";
 
 import AddProjectModal from "../AddProjectModal";
 import EditProjectModal from "../EditProjectModal";
@@ -50,7 +50,10 @@ export default function Content() {
     }
 
     const handleDelete = async (project) => {
-        const response = await projectsApi.delete(`/projects/${project.id}`);
+        const { error } = await supabase
+            .from('Projects')
+            .delete()
+            .eq('id', `${project.id}`)
     }
 
 
@@ -58,7 +61,8 @@ export default function Content() {
     const usFormat = Intl.DateTimeFormat('en-US', {
         year: 'numeric',
         month: '2-digit',
-        day: '2-digit'
+        day: '2-digit',
+        timeZone: 'UTC'
     });
 
     return (

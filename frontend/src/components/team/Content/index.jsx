@@ -1,12 +1,10 @@
 import { SlPlus } from "react-icons/sl"
 import { MembersContext } from "../../../pages/_app";
 import { createContext, useState, useContext} from "react";
-import { MdOutlineEmail } from "react-icons/md";
-import { IoCallOutline } from "react-icons/io5";
 import { AiOutlineTeam } from "react-icons/ai";
 import { FaRegEdit } from "react-icons/fa";
 import { GoTrash } from "react-icons/go";
-import { membersApi } from "@/api/members";
+import { supabase } from "../../../api/api";
 import { IoSearchOutline } from "react-icons/io5";
 
 import EditMemberModal from "../EditMemberModal";
@@ -23,6 +21,7 @@ export default function Content() {
 
     //Data updated every 5s
     const membersItems = useContext(MembersContext);
+    console.log('membersItesm:', membersItems)
     const filteredMembersItems = membersItems.filter((member) => 
         member.name.toLowerCase().includes(searchCharacters.toLowerCase())
     )
@@ -45,7 +44,10 @@ export default function Content() {
     }
 
     const handleDelete = async (member) => {
-        const response = await membersApi.delete(`/members/${member.id}`);
+        const { error } = await supabase
+            .from('Members')
+            .delete()
+            .eq('id', `${member.id}`)
     }
 
     return (
