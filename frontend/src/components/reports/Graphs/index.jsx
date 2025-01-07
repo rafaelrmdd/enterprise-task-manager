@@ -7,7 +7,8 @@ export function PieGraphTasks() {
     const tasksItems = useContext(TasksContext);
     const taskItemsInProgress = tasksItems.filter(task => task.status === 0).length;
     const taskItemsFinished = tasksItems.filter(task => task.status === 1).length;
-    const taskItemsInOverdue = tasksItems.filter(task => task.status === 2).length
+    const taskItemsInOverdue = tasksItems.filter(task => task.status === 2).length;
+    console.log('taskitems: ', tasksItems);
 
     return (
         <>
